@@ -5,8 +5,12 @@ import platform
 mySys = platform.system()
 
 if mySys == 'Linux':
-	CODEDIR = '/home/jlh24/emdmd'
-	WORKDIR = '/media/large_disk/jlh24/emdmd'
+	usr = os.environ.get('USER')
+	CODEDIR = '/home/' + usr + '/emdmd'
+	if usr == 'jlh24':
+		WORKDIR = '/media/large_disk/jlh24/emdmd'
+	else:
+		WORKDIR = CODEDIR
 	DATADIR = os.path.join(WORKDIR, 'data', 'physionet.org/files/chbmit/1.0.0')
 elif mySys == 'Windows':
 	CODEDIR =  'D:\\EmDMD\\emdmd'
@@ -20,7 +24,6 @@ RESDIR = os.path.join(CODEDIR, 'tempdata', 'chb-mit')
 LOGDIR = os.path.join(CODEDIR, 'logs')
 
 FS = 256
-# CH = [i for i in range(18)]
 
 PRE_T = 60*60*FS		# 60 min * 60 sec/min * fs samples/sec prior to seizure
 POST_T = 60*60*FS		# 1 hour after seizure end
@@ -64,3 +67,5 @@ CHANNELS = {
 PATIENTS = ['chb01', 'chb02', 'chb04', 'chb05', 'chb06', 'chb07', 'chb09',
 			'chb10', 'chb13', 'chb14', 'chb16', 'chb17', 'chb18', 'chb20',
 			'chb22', 'chb23']
+
+# PATIENTS = ['chb01']
