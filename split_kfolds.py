@@ -28,6 +28,10 @@ dataset = vars(args)['dataset']
 sph_min = float(vars(args)['sph'])
 sop_min = int(vars(args)['sop'])
 
+if dataset not in const.DATASETS:
+    print('\n\nERROR: unsupported dataset argument. Allowed options: \n', const.DATASETS)
+    exit(1)
+
 _, RESDIR, _ = const.get_dirs(dataset)
 
 outDir = os.path.join(RESDIR, 'folds')
