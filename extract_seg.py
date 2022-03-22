@@ -364,7 +364,7 @@ if dataset == 'chb-mit':
 					print('\tFiltering ' + ' ...\n')
 					interictal = util.butter_bandpass_filter(interictal, fs=FS)
 					# save to file
-					output = open(os.path.join(outDir, patient + '_interictal{}.pickle'.format(fidx)), 'wb')
+					output = open(os.path.join(outDir, patient + '_interictal{}.pkl'.format(fidx)), 'wb')
 					pickle.dump(interictal, output)
 					output.close()
 
@@ -387,7 +387,7 @@ if dataset == 'chb-mit':
 				cut = math.floor(interictal.shape[1]/(FS*60))*(FS*60)
 				interictal = interictal[:, -cut:]
 				# save to file
-				output = open(os.path.join(outDir, patient + '_interictal{}.pickle'.format(fidx)), 'wb')
+				output = open(os.path.join(outDir, patient + '_interictal{}.pkl'.format(fidx)), 'wb')
 				pickle.dump(interictal, output)
 				output.close()
 
@@ -431,7 +431,7 @@ elif dataset == 'kaggle-ieeg':
 			print('\tFiltering ...\n')
 			interictal = util.butter_bandpass_filter(interictal, fs=FS)
 			print('\tSaving interictal segment {} of {} ...\n'.format(segidx + 1, n_segs))
-			output = open(os.path.join(outDir, patient + '_interictal{}.pickle'.format(segidx)), 'wb')
+			output = open(os.path.join(outDir, patient + '_interictal{}.pkl'.format(segidx)), 'wb')
 			pickle.dump(interictal, output)
 			output.close()
 			interictal_time += np.shape(interictal)[1]/FS	# in seconds
