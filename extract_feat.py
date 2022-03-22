@@ -8,21 +8,20 @@ import const
 
 
 parser = argparse.ArgumentParser(
-    description='Processes the extracted preictal/interictal segments of a single patient to extract EmDMD features.')
+    description='Computes EmDMD features from the preictal/interictal segments of the input patient.')
 
 parser.add_argument('--dataset', required=True,
-                    help='Dataset to process.')
+                    help='Dataset name e.g. chb-mit, kaggle-ieeg.')
 
-parser.add_argument('-p', '--patient', required=True, default='chb05',
-                    help='Patient to process. \
-                    Default: chb05')
+parser.add_argument('--patient', required=True,
+                    help='Patient name e.g. chb01, Patient_1.')
 
 parser.add_argument('--class', required=False, default=None,
-                    help='Segment EEG class to process. \
+                    help='Segment EEG class (preictal/interictal). \
                     Default: None')
 
 parser.add_argument('--index', required=False, default=None,
-                    help='Segment EEG index to process. \
+                    help='Segment EEG index. \
                     Default: None')
 
 args = parser.parse_args()

@@ -9,13 +9,13 @@ import const
 
 
 parser = argparse.ArgumentParser(
-    description='Processes a single patient to extract preictal and interictal segments.')
+    description='Extracts and filters preictal and interictal segments for the input patient.')
 
 parser.add_argument('--dataset', required=True,
-					help='Dataset to process.')
+					help='Dataset name e.g. chb-mit, kaggle-ieeg.')
 
 parser.add_argument('--patient', required=True,
-                    help='Patient to process.')
+                    help='Patient name e.g. chb01, Patient_1.')
 
 args = parser.parse_args()
 dataset = vars(args)['dataset']
@@ -62,7 +62,7 @@ datafiles.sort()
 if dataset == 'chb-mit':
 	infofile = os.path.join(outDir, '{}_info.pkl'.format(patient))
 	if os.path.exists(infofile):
-		print('\n{} found. Loading record info ...'.format(infofile))
+		print('Record info found. Loading record info from\n\t{} ...'.format(infofile))
 		with open(infofile, 'rb') as f:
 			info = pickle.load(f)
 		total_len = info[0]
@@ -74,7 +74,7 @@ if dataset == 'chb-mit':
 		interictal_seg = info[6]
 		interictal_seg_byfiles = info[7]
 	else:
-		print('\n{} not found. Computing record info ...'.format(infofile))
+		print('\nRecord info not found at\n\t{}.\nComputing record info ...'.format(infofile))
 		print('\nReading ' + os.path.join(fpath, patient+'-summary.txt') + ' ...')
 		summarypath = os.path.join(fpath, patient+'-summary.txt')
 		infodict = util.read_summary(summarypath)

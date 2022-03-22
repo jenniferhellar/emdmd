@@ -8,7 +8,7 @@ import const
 
 
 parser = argparse.ArgumentParser(
-    description='Processes a single patient to estimate the typical r parameter needed.')
+    description='Estimates the max/mean r parameter needed for the input patient.')
 
 parser.add_argument('--dataset', required=True,
                     help='Dataset to process.')

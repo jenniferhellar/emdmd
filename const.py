@@ -124,8 +124,7 @@ def get_emdmd_params(dataset):
 		R = 40
 	elif dataset == 'kaggle-ieeg':
 		print('\n\nERROR: R parameter not specified for this dataset. See const.get_emdmd_params().\n\n')
-		exit(1)
-
+		R = None
 	# cross-validation split (5 = 80 training/20 test split)
 	K = 5
 

@@ -7,9 +7,7 @@ import random
 from sklearn.model_selection import GridSearchCV
 from sklearn import svm
  
-# from const import RESDIR, SEED
 import const
-
 
 
 def param_selection(X, y, classifier, nfolds, verbosity=0):
@@ -23,10 +21,10 @@ def param_selection(X, y, classifier, nfolds, verbosity=0):
 
 
 parser = argparse.ArgumentParser(
-    description='Processes training data for the input dataset to optimize SVM parameters.')
+    description='Optimizes SVM parameters on the training data for the input dataset.')
 
 parser.add_argument('--dataset', required=True,
-                    help='Dataset to process.')
+                    help='Dataset name e.g. chb-mit, kaggle-ieeg.')
 
 parser.add_argument('-f', '--fold', required=False, default=None,
                     help='Fold to process. If None, processes all folds. \

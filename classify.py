@@ -12,7 +12,7 @@ parser = argparse.ArgumentParser(
     description='Classifies the test data of the input dataset to measure performance.')
 
 parser.add_argument('--dataset', required=True,
-                    help='Dataset to process.')
+                    help='Dataset name e.g. chb-mit, kaggle-ieeg.')
 
 parser.add_argument('-f', '--fold', required=False, default=None,
                     help='Fold to process. \

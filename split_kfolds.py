@@ -10,10 +10,10 @@ import const
 
 
 parser = argparse.ArgumentParser(
-    description='Processes the extracted EmDMD features of the input dataset to create training/test cross-validation splits.')
+    description='Creates training/test cross-validation splits on the extracted EmDMD features of the input dataset.')
 
 parser.add_argument('--dataset', required=True,
-                    help='Dataset to process.')
+                    help='Dataset name e.g. chb-mit, kaggle-ieeg.')
 
 parser.add_argument('--sph', required=True, default=0,
                     help='Seizure prediction horizon (minutes). \
