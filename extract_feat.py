@@ -8,7 +8,7 @@ import const
 
 
 parser = argparse.ArgumentParser(
-    description='Processes a single patient to extract EmDMD features.')
+    description='Processes the extracted preictal/interictal segments of a single patient to extract EmDMD features.')
 
 parser.add_argument('--dataset', required=True,
                     help='Dataset to process.')
@@ -50,7 +50,7 @@ else:
     fidx = int(fidx)
 
 _, RESDIR, _ = const.get_dirs(dataset)
-_, R, _ = const.get_emdmd_params(FS)
+_, R, _, _ = const.get_emdmd_params(dataset)
 
 fpath = os.path.join(RESDIR, patient)
 

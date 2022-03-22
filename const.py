@@ -113,14 +113,26 @@ def get_details(dataset):
 	return FS, PATIENTS, CHANNELS
 
 
-def get_emdmd_params(FS):
-	W = 30*FS 				# window = 30 sec * fs samples/sec
+def get_emdmd_params(dataset):
 
-	R = 40					# SVD truncation parameter, see tb_estimate_r.py
+	fs, _ , _ = get_details(dataset)
+	# averaging window = 30 sec * fs samples/sec
+	W = 30*fs
 
+	# SVD truncation parameter, see estimate_r.py
+	if dataset == 'chb-mit':
+		R = 40
+	elif dataset == 'kaggle-ieeg':
+		print('\n\nERROR: R parameter not specified for this dataset. See const.get_emdmd_params().\n\n')
+		exit(1)
+
+	# cross-validation split (5 = 80 training/20 test split)
+	K = 5
+
+	# rng seed for reproducible results
 	SEED = 42
 
-	return W, R, SEED
+	return W, R, K, SEED
 
 
 def get_label_rules(FS):

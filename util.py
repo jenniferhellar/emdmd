@@ -1,7 +1,7 @@
 import pyedflib
 import numpy as np
 
-from scipy import signal
+from scipy import signal, io
 
 
 def read_edf(filename):
@@ -20,6 +20,40 @@ def read_edf(filename):
     for i in np.arange(n):
         sigbufs[i, :] = f.readSignal(i)
     return sigbufs
+
+
+def read_mat(filename):
+    """
+    """
+    mat = io.loadmat(filename)
+    dkey = [k for k in mat.keys() if k.find('segment') != -1]
+    dkey = dkey[0]
+
+    data = mat[dkey]
+    data = data[0][0]
+
+    # the actual subject iEEG data in ch x time
+    X = data[0]
+    # print(X.shape)  # 15 x 3000000
+
+    # time (in seconds)
+    t_sec = data[1].flatten()[0]
+    # print(t_sec)
+
+    # sampling frequency (in Hz)
+    fs = data[2].flatten()[0]
+    # print(fs)
+
+    # list of channel names present
+    channels = data[3].flatten()
+    channels = [ch[0] for ch in channels]
+    # print(channels)
+
+    # current segment index
+    sequence_idx = data[4].flatten()[0]
+    # print(sequence_idx)
+
+    return X, t_sec, fs, channels, sequence_idx
 
 
 def get_file_summary(patientfile, summaryfile):

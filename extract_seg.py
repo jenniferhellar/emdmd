@@ -32,7 +32,7 @@ if patient not in PATIENTS:
 
 DATADIR, RESDIR, LOGDIR = const.get_dirs(dataset)
 
-W, _, _ = const.get_emdmd_params(FS)
+W, _, _, _ = const.get_emdmd_params(dataset)
 PRE_T, POST_T, INTER_T = const.get_label_rules(FS)
 
 if dataset == 'chb-mit':
