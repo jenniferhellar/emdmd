@@ -25,24 +25,28 @@ if dataset not in const.DATASETS:
 	print('\n\nERROR: unsupported dataset argument. Allowed options: \n', const.DATASETS)
 	exit(1)
 
-FS, PATIENTS, CHANNELS = const.get_details(dataset)
+PATIENTS = const.PATIENTS[dataset]
 if patient not in PATIENTS:
-	print('\n\nERROR: unsupported patient argument. Select from allowed options: {} or add new options in const.get_patients()\n'.format(PATIENTS))
+	print('\n\nERROR: unsupported patient argument. Select from allowed options: {} or add new options in const.py\n'.format(PATIENTS))
 	exit(1)
 
+ORIG_FS = const.ORIG_FS[dataset]
+CHANNELS = const.CHANNELS[dataset][patient]
 DATADIR, RESDIR, LOGDIR = const.get_dirs(dataset)
 
-W, _, _, _ = const.get_emdmd_params(dataset)
-PRE_T, POST_T, INTER_T = const.get_label_rules(FS)
+DS_FACTOR = const.DS_FACTOR[dataset]
+FS = const.get_fs(dataset)
+
+PRE_T, POST_T, INTER_T = const.get_label_rules(ORIG_FS)
 
 if dataset == 'chb-mit':
 	fpath = os.path.join(DATADIR, patient)
 elif dataset == 'kaggle-ieeg':
 	fpath = os.path.join(DATADIR, patient, patient)
 
-outDir = os.path.join(RESDIR, patient)
-if not os.path.isdir(outDir):
-	os.makedirs(outDir)
+OUTDIR = os.path.join(RESDIR, patient)
+if not os.path.isdir(OUTDIR):
+	os.makedirs(OUTDIR)
 
 
 print('\n\nProcessing {} record {} ...'.format(dataset, patient))
@@ -60,7 +64,7 @@ datafiles.sort()
 
 # extra processing needed to identify preictal/interictal segments
 if dataset == 'chb-mit':
-	infofile = os.path.join(outDir, '{}_info.pkl'.format(patient))
+	infofile = os.path.join(OUTDIR, '{}_info.pkl'.format(patient))
 	if os.path.exists(infofile):
 		print('Record info found. Loading record info from\n\t{} ...'.format(infofile))
 		with open(infofile, 'rb') as f:
@@ -74,7 +78,7 @@ if dataset == 'chb-mit':
 		interictal_seg = info[6]
 		interictal_seg_byfiles = info[7]
 	else:
-		print('\nRecord info not found at\n\t{}.\nComputing record info ...'.format(infofile))
+		print('\nRecord info not found at\n\t{}\nComputing record info ...'.format(infofile))
 		print('\nReading ' + os.path.join(fpath, patient+'-summary.txt') + ' ...')
 		summarypath = os.path.join(fpath, patient+'-summary.txt')
 		infodict = util.read_summary(summarypath)
@@ -127,7 +131,7 @@ if dataset == 'chb-mit':
 				most_recent_seizure = seizurestop[i]
 			
 			next_seizure = seizurestart[i + 1]
-			if (next_seizure - most_recent_seizure) < 2*60*60*256:	# 2 hours
+			if (next_seizure - most_recent_seizure) < 2*60*60*ORIG_FS:	# 2 hours
 				most_recent_seizure = seizurestop[i + 1]
 				seizurestart.pop(i+1)
 				seizurestop.pop(i)
@@ -251,12 +255,12 @@ if dataset == 'chb-mit':
 		f = datafiles[startfileidx]
 		print('\tReading ' + os.path.join(fpath, f) + ' ...')
 		x_all = util.read_edf(os.path.join(fpath, f))
-		if f in CHANNELS[patient].keys():
-			ch = CHANNELS[patient][f]
+		if f in CHANNELS.keys():
+			ch = CHANNELS[f]
 		else:
-			ch = CHANNELS[patient]['general']
+			ch = CHANNELS['general']
 		if first:
-			preictal = x_all[ch, filei:filej]	# first 18 channels
+			preictal = x_all[ch, filei:filej]	# first 18 CHANNELS
 			first = False 
 		else:
 			# concatenate horizontally
@@ -264,13 +268,15 @@ if dataset == 'chb-mit':
 
 		curr_seg = preictal_seg[segidx]
 		if j == curr_seg[1]:
+			print('\tSub-sampling ...\n')
+			preictal = util.downsample(preictal, DS_FACTOR)
 			print('\tFiltering ' + ' ...\n')
 			preictal = util.butter_bandpass_filter(preictal, fs=FS)
 			# truncate to a round number of minutes
 			cut = math.floor(preictal.shape[1]/(FS*60))*(FS*60)
 			preictal = preictal[:, -cut:]
 			# save to file
-			output = open(os.path.join(outDir, patient + '_preictal{}.pkl'.format(segidx)), 'wb')
+			output = open(os.path.join(OUTDIR, patient + '_preictal{}.pkl'.format(segidx)), 'wb')
 			pickle.dump(preictal, output)
 			output.close()
 
@@ -292,12 +298,12 @@ elif dataset == 'kaggle-ieeg':
 		cnt += 1
 
 		print('\tReading ' + os.path.join(fpath, f) + ' ...')
-		x_all, t_sec, fs, channels, s_idx = util.read_mat(os.path.join(fpath, f))
+		x_all, t_sec, _, _, s_idx = util.read_mat(os.path.join(fpath, f))
 
-		if f in CHANNELS[patient].keys():
-			ch = CHANNELS[patient][f]
+		if f in CHANNELS.keys():
+			ch = CHANNELS[f]
 		else:
-			ch = CHANNELS[patient]['general']
+			ch = CHANNELS['general']
 
 		if cnt == 1:
 			preictal = x_all[ch, :]
@@ -305,10 +311,13 @@ elif dataset == 'kaggle-ieeg':
 			preictal = np.hstack((preictal, x_all[ch, :]))
 
 		if (cnt == FILES_PER_HOUR) or (f == preictalfiles[-1]):
+			print('\tSub-sampling ...\n')
+			preictal = util.downsample(preictal, DS_FACTOR)
+			
 			print('\tFiltering ...\n')
 			preictal = util.butter_bandpass_filter(preictal, fs=FS)
 			print('\tSaving preictal segment {} of {} ...\n'.format(segidx + 1, n_segs))
-			output = open(os.path.join(outDir, patient + '_preictal{}.pkl'.format(segidx)), 'wb')
+			output = open(os.path.join(OUTDIR, patient + '_preictal{}.pkl'.format(segidx)), 'wb')
 			pickle.dump(preictal, output)
 			output.close()
 			preictal_time += np.shape(preictal)[1]/FS	# in seconds
@@ -332,7 +341,7 @@ if dataset == 'chb-mit':
 		interictal_time = 0
 
 		# limit files to 1 hour long
-		max_len = 1*60*60*FS
+		max_len = 1*60*60*ORIG_FS
 
 		for (i, j) in interictal_seg_byfiles:
 			if i < file_starts[-1]:
@@ -349,10 +358,10 @@ if dataset == 'chb-mit':
 			f = datafiles[startfileidx]
 			print('\tReading ' + os.path.join(fpath, f) + ' ...')
 			x_all = util.read_edf(os.path.join(fpath, f))
-			if f in CHANNELS[patient].keys():
-				ch = CHANNELS[patient][f]
+			if f in CHANNELS.keys():
+				ch = CHANNELS[f]
 			else:
-				ch = CHANNELS[patient]['general']
+				ch = CHANNELS['general']
 			if first:
 				interictal = x_all[ch, filei:filej]
 				first = False
@@ -361,10 +370,12 @@ if dataset == 'chb-mit':
 				curr_len = tmp_interictal.shape[1]
 				while curr_len > max_len:
 					interictal = tmp_interictal[:, :max_len]
+					print('\tSub-sampling ...\n')
+					interictal = util.downsample(interictal, DS_FACTOR)
 					print('\tFiltering ' + ' ...\n')
 					interictal = util.butter_bandpass_filter(interictal, fs=FS)
 					# save to file
-					output = open(os.path.join(outDir, patient + '_interictal{}.pkl'.format(fidx)), 'wb')
+					output = open(os.path.join(OUTDIR, patient + '_interictal{}.pkl'.format(fidx)), 'wb')
 					pickle.dump(interictal, output)
 					output.close()
 
@@ -381,13 +392,15 @@ if dataset == 'chb-mit':
 			# check if the end of current interictal segment is reached
 			curr_seg = interictal_seg[segidx]
 			if j == curr_seg[1]:
+				print('\tSub-sampling ...\n')
+				interictal = util.downsample(interictal, DS_FACTOR)
 				print('\tFiltering ' + ' ...\n')
 				interictal = util.butter_bandpass_filter(interictal, fs=FS)
 				# truncate to a round number of minutes
 				cut = math.floor(interictal.shape[1]/(FS*60))*(FS*60)
 				interictal = interictal[:, -cut:]
 				# save to file
-				output = open(os.path.join(outDir, patient + '_interictal{}.pkl'.format(fidx)), 'wb')
+				output = open(os.path.join(OUTDIR, patient + '_interictal{}.pkl'.format(fidx)), 'wb')
 				pickle.dump(interictal, output)
 				output.close()
 
@@ -416,11 +429,11 @@ elif dataset == 'kaggle-ieeg':
 		cnt += 1
 
 		print('\t\tReading ' + os.path.join(fpath, f) + ' ...')
-		x_all, t_sec, fs, channels, s_idx = util.read_mat(os.path.join(fpath, f))
-		if f in CHANNELS[patient].keys():
-			ch = CHANNELS[patient][f]
+		x_all, t_sec, _, _, s_idx = util.read_mat(os.path.join(fpath, f))
+		if f in CHANNELS.keys():
+			ch = CHANNELS[f]
 		else:
-			ch = CHANNELS[patient]['general']
+			ch = CHANNELS['general']
 
 		if cnt == 1:
 			interictal = x_all[ch, :]
@@ -428,10 +441,12 @@ elif dataset == 'kaggle-ieeg':
 			interictal = np.hstack((interictal, x_all[ch, :]))
 
 		if (cnt == FILES_PER_HOUR) or (f == interictalfiles[-1]):
+			print('\tSub-sampling ...\n')
+			interictal = util.downsample(interictal, DS_FACTOR)
 			print('\tFiltering ...\n')
 			interictal = util.butter_bandpass_filter(interictal, fs=FS)
 			print('\tSaving interictal segment {} of {} ...\n'.format(segidx + 1, n_segs))
-			output = open(os.path.join(outDir, patient + '_interictal{}.pkl'.format(segidx)), 'wb')
+			output = open(os.path.join(OUTDIR, patient + '_interictal{}.pkl'.format(segidx)), 'wb')
 			pickle.dump(interictal, output)
 			output.close()
 			interictal_time += np.shape(interictal)[1]/FS	# in seconds
@@ -442,7 +457,7 @@ elif dataset == 'kaggle-ieeg':
 print('done.')
 
 
-print('\n\nOutput files can be found in {}\n'.format(outDir))
+print('\n\nOutput files can be found in {}\n'.format(OUTDIR))
 if dataset == 'chb-mit':
 	print('total_seizures = ', total_seizures)
 print('num_seizures = ', num_seizures)	# number of seizures for this patient

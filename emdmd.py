@@ -157,11 +157,11 @@ def get_averaged_features(X, fs, r, wsub_sec=1, h=None):
     return Freq, Power, Phase_Synch
 
 
-def get_emdmd_features(X, fs, r, w_sec=30, wsub_sec=1, h=None):
-    w = (w_sec*fs)
+def get_emdmd_features(X, fs, w, r, wsub_sec=1, h=None):
+    w = w*fs
     n_seg = X.shape[1]/w
     if int(n_seg) != n_seg:
-        print('Error: get_emdmd_features() requires dim 1 of X to be a multiple of w_sec*fs.')
+        print('Error: get_emdmd_features() requires dim 1 of X to be a multiple of w*fs.')
         exit(0)
     else:
         n_seg = int(n_seg) 
@@ -184,7 +184,7 @@ def get_emdmd_features(X, fs, r, w_sec=30, wsub_sec=1, h=None):
 
 def get_r(X, p=0.90):
     # singular value decomposition
-    W, s, Ut = linalg.svd(X, full_matrices=False)
+    _, s, _ = linalg.svd(X, full_matrices=False)
 
     # default to keeping enough to cover p variance in data
     var = s**2/np.sum(s**2)

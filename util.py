@@ -126,6 +126,16 @@ def butter_bandpass_filter(data, fs, lowcut=0.1, highcut=40, order = 2):
     return y
 
 
+def downsample(X, factor):
+    if factor > 1:
+        X_out = np.zeros((X.shape[0], int(X.shape[1]/factor)))
+        for x in range(0, X.shape[1], factor):
+            X_out[:, int(x/factor)] = np.mean(X[:, x:x+factor], axis=1)
+    else:
+        X_out = X
+    return X_out
+
+
 def read_feature_extraction_log(logfile):
 
     with open(logfile, 'r') as fID:

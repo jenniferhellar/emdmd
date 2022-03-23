@@ -17,7 +17,7 @@ if dataset not in const.DATASETS:
 	print('\n\nERROR: unsupported dataset argument. Allowed options: \n', const.DATASETS)
 	exit(1)
 
-_, PATIENTS, _ = const.get_details(dataset)
+PATIENTS = const.PATIENTS[dataset]
 _, _, LOGDIR = const.get_dirs(dataset)
 
 for p in PATIENTS:
