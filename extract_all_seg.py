@@ -5,7 +5,7 @@ import const
 
 
 parser = argparse.ArgumentParser(
-    description='Processes all patients from the input dataset to extract preictal and interictal segments.')
+    description='Extracts preictal/interictal segments from all patients in the input dataset.')
 
 parser.add_argument('--dataset', required=True,
 					help='Dataset name e.g. chb-mit, kaggle-ieeg.')

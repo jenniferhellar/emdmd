@@ -9,7 +9,7 @@ import const
 
 
 parser = argparse.ArgumentParser(
-    description='Extracts and filters preictal and interictal segments for the input patient.')
+    description='Extracts, downsamples, and filters preictal and interictal segments for the input patient.')
 
 parser.add_argument('--dataset', required=True,
 					help='Dataset name e.g. chb-mit, kaggle-ieeg.')

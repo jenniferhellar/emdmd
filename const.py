@@ -2,6 +2,8 @@ import os
 import platform
 
 
+
+""" Dataset information """
 DATASETS = ['chb-mit', 'kaggle-ieeg']
 
 ORIG_FS = {'chb-mit': 256, 'kaggle-ieeg': 5000}
@@ -50,6 +52,9 @@ CHANNELS = {'chb-mit': {'chb01': {'general':chb_mit_normal_ch},
 							'Dog_5': {'general':kaggle_dog_ch}}
 }
 
+
+
+""" EmDMD parameters """
 # downsampling factor
 DS_FACTOR = {'chb-mit': 1, 'kaggle-ieeg': 10}
 
@@ -59,12 +64,17 @@ W = 30
 # SVD truncation parameter
 R = {'chb-mit': 40, 'kaggle-ieeg': 24}
 
+
+
+""" Experiment/simulation parameters """
 # cross-validation split (5 = 80 training/20 test split)
 K = 5
 
 # rng seed for reproducible results
 SEED = 42
 
+
+""" Functions """
 def get_dirs(dataset):
 	mySys = platform.system()
 
