@@ -1,19 +1,36 @@
+"""
+Dataset constants, key EmDMD and simulation parameters, and functions to 
+obtain directory paths, effective sampling frequencies, and
+preictal/interictal labelling rules.
+-----------------------------------------------------------------------------
+
+file: const.py
+author: Jennifer Hellar
+email: jenniferhellar@pm.me
+
+packages: os, platform
+
+-----------------------------------------------------------------------------
+"""
 import os
 import platform
-
 
 
 """ Dataset information """
 DATASETS = ['chb-mit', 'kaggle-ieeg']
 
+# sampling frequency
 ORIG_FS = {'chb-mit': 256, 'kaggle-ieeg': 5000}
 
+# patients to analyze
 PATIENTS = {'chb-mit': ['chb01', 'chb02', 'chb04', 'chb05', 'chb06', 
 						'chb07', 'chb09', 'chb10', 'chb13', 'chb14', 
 						'chb16', 'chb17', 'chb18', 'chb20', 'chb22', 
 						'chb23'],
 			'kaggle-ieeg': ['Patient_1', 'Patient_2']}
 
+# channels to use
+#	some channels get shuffled in CHB-MIT files
 chb_mit_normal_ch = [i for i in range(18)]
 chb_mit_alt_ch = [0,1,2,3,5,6,7,8,13,14,15,16,18,19,20,21,10,11]
 
@@ -76,6 +93,21 @@ SEED = 42
 
 """ Functions """
 def get_dirs(dataset):
+	"""
+	Depending on the system platform and input dataset, specifies
+	the full paths to the data, results, and logs directories.
+
+	Arguments:
+		dataset: the dataset being analyzed should be located at
+			emdmd/data/[dataset]/
+
+	Returns:
+		DATADIR: the full path to the dataset directory
+		RESDIR: the full path to the results directory
+			(created at emdmd/tempdata/[dataset]/ if not found)
+		LOGDIR: the full path to the output logs directory
+			(created at emdmd/logs/ if not found)
+	"""
 	mySys = platform.system()
 
 	if mySys == 'Linux':
@@ -109,10 +141,33 @@ def get_dirs(dataset):
 
 
 def get_fs(dataset):
+	"""
+	Computes the effective sampling frequency of the input dataset
+	after preictal/interictal segments are extracted, downsampled,
+	and filtered by extract_seg.py.
+
+	Arguments:
+		dataset: the name of the dataset
+
+	Returns:
+		The integer sampling frequency of the extracted segments.
+	"""
 	return int(ORIG_FS[dataset]/DS_FACTOR[dataset])
 
 
 def get_label_rules(fs):
+	"""
+	Specifies the preictal, postictal, and interictal labelling rules.
+
+	Arguments:
+		fs: original sampling frequency of the data
+
+	Returns:
+		preictal_t: the number of preictal samples prior to seizure onset
+		postictal_t: no. of postictal samples after seizure end
+		interictal_t: no. of samples before/after seizure to exclude
+			from interictal data
+	"""
 	# 60 min * 60 sec/min * fs samples/sec prior to seizure
 	preictal_t = 60*60*fs
 	# 1 hour after seizure end
