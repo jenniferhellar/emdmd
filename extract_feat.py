@@ -5,6 +5,7 @@ import numpy as np
 
 import emdmd
 import const
+import util
 
 
 parser = argparse.ArgumentParser(
@@ -34,7 +35,7 @@ if dataset not in const.DATASETS:
     print('\n\nERROR: unsupported dataset argument. Allowed options: \n', const.DATASETS)
     exit(1)
 
-FS, PATIENTS, _ = const.get_details(dataset)
+PATIENTS = const.PATIENTS[dataset]
 if patient not in PATIENTS:
     print('\n\nERROR: unsupported patient argument. Select from allowed options: {} or add new options in const.get_patients()\n'.format(PATIENTS))
     exit(1)
@@ -48,16 +49,18 @@ else:
     MULTI_FILE = False
     fidx = int(fidx)
 
-_, RESDIR, _ = const.get_dirs(dataset)
-_, R, _, _ = const.get_emdmd_params(dataset)
+print('\n\nProcessing {} record {} ...'.format(dataset, patient))
 
+FS = const.get_fs(dataset)
+W = const.W
+R = const.R[dataset]
+
+_, RESDIR, _ = const.get_dirs(dataset)
 fpath = os.path.join(RESDIR, patient)
 
-outDir = os.path.join(RESDIR, patient, 'features')
-if not os.path.isdir(outDir):
-	os.makedirs(outDir)
-
-print('\n\nProcessing {} record {} ...'.format(dataset, patient))
+OUTDIR = os.path.join(RESDIR, patient, 'features')
+if not os.path.isdir(OUTDIR):
+	os.makedirs(OUTDIR)
 
 if MULTI_FILE:
     files = os.listdir(fpath)
@@ -67,8 +70,12 @@ else:
     files = ['{}_{}{}.pkl'.format(patient, fclass, fidx)]
 
 n_files = len(files)
+
+# interictal files
 inter_files = [i for i in files if i.find('interictal') != -1]
 n_inter = len(inter_files)
+
+# preictal files
 pre_files = [i for i in files if i.find('preictal') != -1]
 n_pre = len(pre_files)
 
@@ -77,6 +84,9 @@ n_interictal_windows = 0
 i = 0
 
 for file in files:
+    if file.find('info') != -1:
+        continue
+
     print('Extracting features for ' + file + ' ({} of {})'.format(i+1, n_files))
     
     if file.find('preictal') != -1:
@@ -93,7 +103,7 @@ for file in files:
     seg = pickle.load(f)
     f.close()
 
-    features = emdmd.get_emdmd_features(seg, fs=FS, r=R)
+    features = emdmd.get_emdmd_features(seg, fs=FS, w=W, r=R)
     n = features.shape[0]
     print('\tnumber of windows evaluated ... ', n)
 
@@ -104,13 +114,13 @@ for file in files:
 
     print('\tdumping data to file ...')
     outfile = patient + '_{}{}_features.pkl'.format(state, segidx)
-    f = open(os.path.join(outDir, outfile), 'wb')
+    f = open(os.path.join(OUTDIR, outfile), 'wb')
     pickle.dump(features, f)
     f.close()
 
     i += 1
 
-print('\n\nOutput files can be found in {}'.format(outDir))
+print('\n\nOutput files can be found in {}'.format(OUTDIR))
 print('\n')
 print('total preictal windows ... ', n_preictal_windows)
 print('total interictal windows ... ', n_interictal_windows)

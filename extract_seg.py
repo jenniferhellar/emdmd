@@ -13,7 +13,7 @@ local dependencies: util.py and const.py
 -----------------------------------------------------------------------------
 usage: extract_seg.py [-h] --dataset DATASET --patient PATIENT
 
-Extracts, downsamples, and filters preictal and interictal segments for the input patient.
+Extracts and downsamples preictal and interictal segments for the input patient.
 
 options:
   -h, --help         show this help message and exit
@@ -32,7 +32,6 @@ Extraction and processing:
 - Split into at most 1-hour long segments
 - For each segment,
 	- Downsample by the factor specified for the dataset in const.py
-	- Filter with a 2nd-order Butterworth bandpass filter from 0.1 to 40 Hz 
 
 Creates output directory 'tempdata/[dataset]/[patient]/'
 	- Saves files by naming convention [patient]_[state][index].pkl 
@@ -54,7 +53,7 @@ import const
 
 
 parser = argparse.ArgumentParser(
-    description='Extracts, downsamples, and filters preictal and interictal segments for the input patient.')
+    description='Extracts and downsamples preictal and interictal segments for the input patient.')
 
 parser.add_argument('--dataset', required=True,
 					help='Dataset name e.g. chb-mit, kaggle-ieeg')
@@ -371,8 +370,6 @@ if dataset == 'chb-mit':
 			print('\tSub-sampling ...\n')
 			preictal = util.downsample(preictal, DS_FACTOR)
 
-			print('\tFiltering ' + ' ...\n')
-			preictal = util.butter_bandpass_filter(preictal, fs=FS)
 			# truncate to a round number of minutes
 			cut = math.floor(preictal.shape[1]/(FS*60))*(FS*60)
 			preictal = preictal[:, -cut:]
@@ -419,9 +416,6 @@ elif dataset == 'kaggle-ieeg':
 		if (cnt == FILES_PER_HOUR) or (f == preictalfiles[-1]):
 			print('\tSub-sampling ...\n')
 			preictal = util.downsample(preictal, DS_FACTOR)
-			
-			print('\tFiltering ...\n')
-			preictal = util.butter_bandpass_filter(preictal, fs=FS)
 
 			print('\tSaving preictal segment {} of {} ...\n'.format(segidx + 1, n_segs))
 			output = open(os.path.join(OUTDIR, patient + '_preictal{}.pkl'.format(segidx)), 'wb')
@@ -488,8 +482,6 @@ if dataset == 'chb-mit':
 					interictal = tmp_interictal[:, :max_len]
 					print('\tSub-sampling ...\n')
 					interictal = util.downsample(interictal, DS_FACTOR)
-					print('\tFiltering ' + ' ...\n')
-					interictal = util.butter_bandpass_filter(interictal, fs=FS)
 					# save to file
 					output = open(os.path.join(OUTDIR, patient + '_interictal{}.pkl'.format(fidx)), 'wb')
 					pickle.dump(interictal, output)
@@ -512,8 +504,6 @@ if dataset == 'chb-mit':
 			if j == curr_seg[1]:
 				print('\tSub-sampling ...\n')
 				interictal = util.downsample(interictal, DS_FACTOR)
-				print('\tFiltering ' + ' ...\n')
-				interictal = util.butter_bandpass_filter(interictal, fs=FS)
 				# truncate to a round number of minutes
 				cut = math.floor(interictal.shape[1]/(FS*60))*(FS*60)
 				interictal = interictal[:, -cut:]
@@ -565,8 +555,6 @@ elif dataset == 'kaggle-ieeg':
 		if (cnt == FILES_PER_HOUR) or (f == interictalfiles[-1]):
 			print('\tSub-sampling ...\n')
 			interictal = util.downsample(interictal, DS_FACTOR)
-			print('\tFiltering ...\n')
-			interictal = util.butter_bandpass_filter(interictal, fs=FS)
 			print('\tSaving interictal segment {} of {} ...\n'.format(segidx + 1, n_segs))
 			output = open(os.path.join(OUTDIR, patient + '_interictal{}.pkl'.format(segidx)), 'wb')
 			pickle.dump(interictal, output)

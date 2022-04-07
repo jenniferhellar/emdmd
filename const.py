@@ -79,7 +79,9 @@ DS_FACTOR = {'chb-mit': 1, 'kaggle-ieeg': 10}
 W = 30
 
 # SVD truncation parameter
-R = {'chb-mit': 40, 'kaggle-ieeg': 24}
+# these were obtained from estimate_r.py based on keeping 90% variance
+# but probably, need to be chosen based on keeping higher freq of DMD modes
+R = {'chb-mit': 100, 'kaggle-ieeg': 100}
 
 
 
