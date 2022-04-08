@@ -5,7 +5,7 @@ file: emdmd.py
 author: Jennifer Hellar
 email: jenniferhellar@pm.me
 
-requirements: numpy, cmath, math
+requirements: numpy, cmath, math, itertools
 """
 
 import numpy as np
@@ -15,6 +15,7 @@ import cmath
 import math
 import itertools
 
+# local script
 import util
 
 

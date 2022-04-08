@@ -1,14 +1,40 @@
+"""
+A script to compute EmDMD features for the requested EEG or iEEG dataset.
+Iterates over the patients specified in const.py and calls extract_feat.py
+on each. Creates a plain text log file per patient.
+
+See extract_feat.py for more details.
+-----------------------------------------------------------------------------
+
+file: extract_all_feat.py
+author: Jennifer Hellar
+email: jenniferhellar@pm.me
+
+packages: os, argparse
+local dependencies: const.py
+
+-----------------------------------------------------------------------------
+usage: extract_all_feat.py [-h] --dataset DATASET
+
+Processes all patients from the input dataset to compute EmDMD features.
+
+options:
+  -h, --help         show this help message and exit
+  --dataset DATASET  Dataset name e.g. chb-mit, kaggle-ieeg
+-----------------------------------------------------------------------------
+"""
 import os
 import argparse
 
+# local script
 import const
 
 
 parser = argparse.ArgumentParser(
-    description='Processes all patients from the input dataset to extract EmDMD features.')
+    description='Processes all patients from the input dataset to compute EmDMD features.')
 
 parser.add_argument('--dataset', required=True,
-					help='Dataset name e.g. chb-mit, kaggle-ieeg.')
+					help='Dataset name e.g. chb-mit, kaggle-ieeg')
 
 args = parser.parse_args()
 dataset = vars(args)['dataset']
