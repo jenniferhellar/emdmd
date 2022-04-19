@@ -79,11 +79,16 @@ parser.add_argument('--sop', required=True, default=5,
                     help='Seizure onset period (minutes). \
                     Default: 5')
 
+parser.add_argument('--verbose', required=False, default=False,
+                    help='Print detailed output. \
+                    Default: False')
+
 args = parser.parse_args()
 dataset = vars(args)['dataset']
 patient = vars(args)['patient']
-sph_min = float(vars(args)['sph'])
+sph_min = int(vars(args)['sph'])
 sop_min = int(vars(args)['sop'])
+verbose = bool(vars(args)['verbose'])
 
 if dataset not in const.DATASETS:
     print('\n\nERROR: unsupported dataset argument. Allowed options: \n', const.DATASETS)
@@ -150,6 +155,9 @@ for patient_idx in range(len(patient_lst)):
 
         # select the preictal data to later classify
         onset = features.shape[0]
+        # the kaggle dataset cuts out the 5 min prior to onset
+        if dataset == 'kaggle-ieeg' or dataset == 'kaggle-dog':
+            onset += int(5*60/W)
         if i == 0:
             pat_preictal = features[(onset-sop):(onset-sph), :]
         else:
@@ -178,7 +186,8 @@ for patient_idx in range(len(patient_lst)):
     X = np.concatenate((pat_preictal, pat_interictal), axis=0)
     # label the data segments
     y = np.concatenate((np.ones((pre_len,1)), np.zeros((pre_len,1))), axis=0)
-    print(patient, X.shape, y.shape)
+    if verbose:
+        print(patient, X.shape, y.shape)
 
     # write the data to files (for redundancy)
     outfile = '{}_X.pkl'.format(patient)
@@ -209,15 +218,16 @@ for patient_idx in range(len(patient_lst)):
             X_test[fold] = np.concatenate((X_test[fold], X_tst), axis=0)
             y_test[fold] = np.concatenate((y_test[fold], y_tst), axis=0)
         fold += 1
-
-print('X_train\t', len(X_train), X_train[0].shape)
-print('y_train\t', len(y_train), y_train[0].shape)
-print('X_test\t', len(X_test), X_test[0].shape)
-print('y_test\t', len(y_test), y_test[0].shape)
+if verbose:
+    print('X_train\t', len(X_train), X_train[0].shape)
+    print('y_train\t', len(y_train), y_train[0].shape)
+    print('X_test\t', len(X_test), X_test[0].shape)
+    print('y_test\t', len(y_test), y_test[0].shape)
 
 
 # save the overall dataset cross-validation splits
-print('\ndumping data to file ...')
+if verbose:
+    print('\ndumping data to file ...')
 for fold in range(K):
     outfile = 'fold{}_Xtrain.pkl'.format(fold)
     f = open(os.path.join(OUTDIR, outfile), 'wb')

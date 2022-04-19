@@ -92,7 +92,7 @@ PRE_T, POST_T, INTER_T = const.get_label_rules(ORIG_FS)
 
 if dataset == 'chb-mit':
 	fpath = os.path.join(DATADIR, patient)
-elif dataset == 'kaggle-ieeg':
+elif dataset == 'kaggle-ieeg' or dataset == 'kaggle-dog':
 	fpath = os.path.join(DATADIR, patient, patient)
 
 OUTDIR = os.path.join(RESDIR, patient)
@@ -105,7 +105,7 @@ files = os.listdir(fpath)
 
 if dataset == 'chb-mit':
 	ftype = '.edf'
-elif dataset == 'kaggle-ieeg':
+elif dataset == 'kaggle-ieeg' or dataset == 'kaggle-dog':
 	ftype = '.mat'
 	# files saved in 10-min segments
 	FILES_PER_HOUR	=	6
@@ -384,20 +384,22 @@ if dataset == 'chb-mit':
 			first = True
 			segidx += 1
 
-elif dataset == 'kaggle-ieeg':
+elif dataset == 'kaggle-ieeg' or dataset == 'kaggle-dog':
 	preictalfiles = [i for i in datafiles if i.find('preictal') != -1]
-	# one hour of preictal data per seizure
-	num_seizures = len(preictalfiles) / FILES_PER_HOUR
-	n_segs = math.ceil(len(preictalfiles)/FILES_PER_HOUR)
-
 	cnt = 0
+	for f in preictalfiles:
+		_, _, _, _, seqidx = util.read_mat(os.path.join(fpath, f))
+		if seqidx == 6:
+			cnt += 1
+	num_seizures = cnt
+	n_segs = cnt
+	
 	segidx = 0
 	preictal_time = 0
+	last_seqidx = 0
 	for f in preictalfiles:
-		cnt += 1
-
 		print('\tReading ' + os.path.join(fpath, f) + ' ...')
-		x_all, _, _, _, _ = util.read_mat(os.path.join(fpath, f))
+		x_all, _, _, _, seqidx = util.read_mat(os.path.join(fpath, f))
 
 		# get the channels to use for this patient
 		if f in CHANNELS.keys():
@@ -405,17 +407,21 @@ elif dataset == 'kaggle-ieeg':
 		else:
 			ch = CHANNELS['general']
 
-		if cnt == 1:
+		if last_seqidx == 0 or seqidx < last_seqidx:
 			# first part of this preictal segment
 			preictal = x_all[ch, :]
 		else:
 			# stack horizontally (across time)
 			preictal = np.hstack((preictal, x_all[ch, :]))
 
-		# if end of this segment or last of the files ...
-		if (cnt == FILES_PER_HOUR) or (f == preictalfiles[-1]):
+		# if end of this segment ...
+		if seqidx == 6:
 			print('\tSub-sampling ...\n')
 			preictal = util.downsample(preictal, DS_FACTOR)
+
+			# truncate to a round number of minutes
+			cut = math.floor(preictal.shape[1]/(FS*60))*(FS*60)
+			preictal = preictal[:, -cut:]
 
 			print('\tSaving preictal segment {} of {} ...\n'.format(segidx + 1, n_segs))
 			output = open(os.path.join(OUTDIR, patient + '_preictal{}.pkl'.format(segidx)), 'wb')
@@ -425,7 +431,7 @@ elif dataset == 'kaggle-ieeg':
 			preictal_time += np.shape(preictal)[1]/FS	# in seconds
 			segidx += 1
 
-			cnt = 0
+		last_seqidx = seqidx
 
 print('done.')
 
@@ -526,25 +532,30 @@ if dataset == 'chb-mit':
 		print('No interictal segments to extract ' + ' ...')
 		interictal_time = 0
 
-elif dataset == 'kaggle-ieeg':
+elif dataset == 'kaggle-ieeg' or dataset == 'kaggle-dog':
 	interictalfiles = [i for i in datafiles if i.find('interictal') != -1]
-	n_segs = math.ceil(len(interictalfiles)/FILES_PER_HOUR)
-
 	cnt = 0
+	for f in interictalfiles:
+		_, _, _, _, seqidx = util.read_mat(os.path.join(fpath, f))
+		if seqidx == 6 or f == interictalfiles[-1]:
+			cnt += 1
+	n_segs = cnt
+
 	segidx = 0
 	interictal_time = 0
+	last_seqidx = 0
 	for f in interictalfiles:
 		cnt += 1
 		# read in the data file
 		print('\t\tReading ' + os.path.join(fpath, f) + ' ...')
-		x_all, t_sec, _, _, s_idx = util.read_mat(os.path.join(fpath, f))
+		x_all, t_sec, _, _, seqidx = util.read_mat(os.path.join(fpath, f))
 		# get the correct channels to use
 		if f in CHANNELS.keys():
 			ch = CHANNELS[f]
 		else:
 			ch = CHANNELS['general']
 
-		if cnt == 1:
+		if last_seqidx == 0 or seqidx < last_seqidx:
 			# first part of the segment
 			interictal = x_all[ch, :]
 		else:
@@ -552,9 +563,12 @@ elif dataset == 'kaggle-ieeg':
 			interictal = np.hstack((interictal, x_all[ch, :]))
 
 		# reached end of the segment or the final file
-		if (cnt == FILES_PER_HOUR) or (f == interictalfiles[-1]):
+		if (seqidx == 6) or (f == interictalfiles[-1]):
 			print('\tSub-sampling ...\n')
 			interictal = util.downsample(interictal, DS_FACTOR)
+			# truncate to a round number of minutes
+			cut = math.floor(interictal.shape[1]/(FS*60))*(FS*60)
+			interictal = interictal[:, -cut:]
 			print('\tSaving interictal segment {} of {} ...\n'.format(segidx + 1, n_segs))
 			output = open(os.path.join(OUTDIR, patient + '_interictal{}.pkl'.format(segidx)), 'wb')
 			pickle.dump(interictal, output)
@@ -562,7 +576,7 @@ elif dataset == 'kaggle-ieeg':
 			interictal_time += np.shape(interictal)[1]/FS	# in seconds
 			segidx += 1
 
-			cnt = 0
+		last_seqidx = seqidx
 
 print('done.')
 

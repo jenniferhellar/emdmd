@@ -17,17 +17,18 @@ import platform
 
 
 """ Dataset information """
-DATASETS = ['chb-mit', 'kaggle-ieeg']
+DATASETS = ['chb-mit', 'kaggle-ieeg', 'kaggle-dog']
 
 # sampling frequency
-ORIG_FS = {'chb-mit': 256, 'kaggle-ieeg': 5000}
+ORIG_FS = {'chb-mit': 256, 'kaggle-ieeg': 5000, 'kaggle-dog': 400}
 
 # patients to analyze
 PATIENTS = {'chb-mit': ['chb01', 'chb02', 'chb04', 'chb05', 'chb06', 
 						'chb07', 'chb09', 'chb10', 'chb13', 'chb14', 
 						'chb16', 'chb17', 'chb18', 'chb20', 'chb22', 
 						'chb23'],
-			'kaggle-ieeg': ['Patient_1', 'Patient_2']}
+			'kaggle-ieeg': ['Patient_1', 'Patient_2'],
+			'kaggle-dog': ['Dog_1', 'Dog_2', 'Dog_3', 'Dog_4', 'Dog_5']}
 
 # channels to use
 #	some channels get shuffled in CHB-MIT files
@@ -61,19 +62,19 @@ CHANNELS = {'chb-mit': {'chb01': {'general':chb_mit_normal_ch},
 						'chb23': {'general':chb_mit_normal_ch},
 						'chb24': {'general':chb_mit_normal_ch}},
 			'kaggle-ieeg': {'Patient_1': {'general':[i for i in range(15)]},
-							'Patient_2': {'general':[i for i in range(24)]},
-							'Dog_1': {'general':kaggle_dog_ch},
+							'Patient_2': {'general':[i for i in range(24)]}},
+			'kaggle-dog': {'Dog_1': {'general':kaggle_dog_ch},
 							'Dog_2': {'general':kaggle_dog_ch},
 							'Dog_3': {'general':kaggle_dog_ch},
 							'Dog_4': {'general':kaggle_dog_ch},
-							'Dog_5': {'general':kaggle_dog_ch}}
+							'Dog_5': {'general':[i for i in range(15)]}}
 }
 
 
 
 """ EmDMD parameters """
 # downsampling factor
-DS_FACTOR = {'chb-mit': 1, 'kaggle-ieeg': 10}
+DS_FACTOR = {'chb-mit': 1, 'kaggle-ieeg': 10, 'kaggle-dog': 1}
 
 # averaging window size (in seconds)
 W = 30
@@ -81,7 +82,7 @@ W = 30
 # SVD truncation parameter
 # these were obtained from estimate_r.py based on keeping 90% variance
 # but probably, need to be chosen based on keeping higher freq of DMD modes
-R = {'chb-mit': 100, 'kaggle-ieeg': 100}
+R = {'chb-mit': 100, 'kaggle-ieeg': 100, 'kaggle-dog': 100}
 
 
 

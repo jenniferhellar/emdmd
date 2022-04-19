@@ -36,7 +36,7 @@ def get_hankel_matrices(X, h=None):
 
     # if parameter not supplied, use this general rule
     if h == None:
-        h = math.ceil(2*m/n * 1.5)    # hn > 2m
+        h = math.ceil(3*m/n)    # hn > 2m
 
     # print(n, m, h)
     H = X[:, 0:(m - h + 1)]     # embedding on the data
@@ -190,37 +190,16 @@ def get_power(Phi):
     Computes the power of the input EmDMD mode array.
 
     Arguments:
-        Phi: n x (r/2) EmDMD mode array.
+        Phi: n x m EmDMD mode array.
 
     Returns:
-        n x (r/2) power array.
+        1 x m power array.
     """
-    # A possibly interesting alternative 
-    # (looking at power per mode rather than per element)
+    # power per mode
     n_modes = Phi.shape[1]
     power = np.zeros(n_modes)
     for mode in range(0, n_modes):
         power[mode] = np.sqrt(np.sum(np.abs(Phi[:,mode])**2))**2
-    
-    # # magnitude of complex values
-    # power = np.abs(Phi)
-    return power
-
-
-def get_channelwise_power(Phi):
-    """
-    Computes the power of the input EmDMD mode array.
-
-    Arguments:
-        Phi: n x (r/2) EmDMD mode array.
-
-    Returns:
-        n x (r/2) power array.
-    """
-    n_ch = Phi.shape[0]
-    power = np.zeros(n_ch)
-    for ch in range(0, n_ch):
-        power[ch] = np.sqrt(np.sum(np.abs(Phi[ch,:])**2))**2
     return power
 
 
@@ -247,9 +226,6 @@ def get_subband_power(Phi, freq):
             subband_p[3] += Power[i]
         elif f <= gamma_f:
             subband_p[4] += Power[i]
-    
-    # # total power in all sub-bands
-    # subband_p[5] = np.sum(subband_p[0:4])
 
     subband_p = subband_p / np.sum(subband_p)
 
@@ -273,59 +249,64 @@ def get_moments(Phi, freq):
 
 def get_plv(Phi):
     """
-    Computes the phase synchronization of the input EmDMD mode array.
+    Computes the channel-wise phase synchronization of the input 
+    EmDMD mode array as the phase locking values for a given pair 
+    of channels, averaged across modes/frequencies.
 
     Arguments:
-        Phi: n x (r/2) EmDMD mode array.
+        Phi: n x m EmDMD mode array.
 
     Returns:
-        phase synchronization array.
+        1 x n*(n-1)/2 phase synchronization array.
     """
     # complex phases of each element
     phase = np.zeros(Phi.shape)
     for i in range(Phi.shape[0]):
         for j in range(Phi.shape[1]):
             phase[i, j] = cmath.phase(Phi[i,j])
-
-    n_ch = Phi.shape[0]
-    ch_pairs = list(itertools.combinations([i for i in range(n_ch)], 2))
+    # unique pairs of channels
+    ch_pairs = list(itertools.combinations([i for i in range(Phi.shape[0])], 2))
     plv = np.zeros(len(ch_pairs))
     pair_i = 0
+    # for each channel pair
     for (i,j) in ch_pairs:
-        theta1 = phase[i, :]
-        theta2 = phase[j, :]
+        theta1 = phase[i, :]    # phases of channel i
+        theta2 = phase[j, :]    # phases of channel j
+        # element-wise phase differences
         complex_phase_diff = np.exp(np.complex(0,1)*(theta1 - theta2))
+        # average across modes/frequencies
         plv[pair_i] = np.abs(np.sum(complex_phase_diff))/len(theta1)
         pair_i += 1
     return plv
 
 
-
-def get_mplv(Phi):
+def get_plv_matrix(Phi):
     """
-    Computes the phase synchronization of the input EmDMD mode array.
+    Computes the channel-wise phase synchronization of the input 
+    EmDMD mode array as the phase locking values for a given pair 
+    of channels, averaged across modes/frequencies.
 
     Arguments:
-        Phi: n x (r/2) EmDMD mode array.
+        Phi: n x m EmDMD mode array.
 
     Returns:
-        phase synchronization array.
+        1 x n*(n-1)/2 phase synchronization array.
     """
     # complex phases of each element
     phase = np.zeros(Phi.shape)
     for i in range(Phi.shape[0]):
         for j in range(Phi.shape[1]):
             phase[i, j] = cmath.phase(Phi[i,j])
-    n_modes = 10
-    mode_pairs = list(itertools.combinations([i for i in range(n_modes)], 2))
-    plv = np.zeros(len(mode_pairs))
-    pair_i = 0
-    for (i,j) in mode_pairs:
-        theta1 = phase[:, i]
-        theta2 = phase[:, j]
-        complex_phase_diff = np.exp(np.complex(0,1)*(theta1 - theta2))
-        plv[pair_i] = np.abs(np.sum(complex_phase_diff))/len(theta1)
-        pair_i += 1
+    n = Phi.shape[0]
+    plv = np.zeros((n, n))
+    for i in range(n):
+        for j in range(n):
+            theta1 = phase[i, :]    # phases of channel i
+            theta2 = phase[j, :]    # phases of channel j
+            # element-wise phase differences
+            complex_phase_diff = np.exp(np.complex(0,1)*(theta1 - theta2))
+            # average across modes/frequencies
+            plv[i, j] = np.abs(np.sum(complex_phase_diff))/len(theta1)
     return plv
 
 
@@ -359,6 +340,7 @@ def get_averaged_features(X, fs, r, wsub_sec=1, h=None):
     Subband_Power = np.zeros((1, 5))
     Moments = np.zeros((1, 3))
     PLV = np.zeros((1, int(n*(n-1)/2)))
+    Freq_Max = 0
 
     # compute DMD power/phase/freq for each sub-window of data
     for i in range(n_windows):
@@ -367,6 +349,7 @@ def get_averaged_features(X, fs, r, wsub_sec=1, h=None):
         x = X[:, i*w:(i+1)*w]
 
         Phi, freq = emdmd(x, fs, r, h)
+        Freq_Max += freq[-1]
 
         subband_power = get_subband_power(Phi, freq)
         moments = get_moments(Phi, freq)
@@ -380,8 +363,9 @@ def get_averaged_features(X, fs, r, wsub_sec=1, h=None):
     Subband_Power /= n_windows
     Moments /= n_windows
     PLV /= n_windows
+    Freq_Max /= n_windows
 
-    return Subband_Power, Moments, PLV
+    return Subband_Power, Moments, PLV, Freq_Max
 
 
 def get_emdmd_features(X, fs, w, r, wsub_sec=1, h=None):
@@ -398,8 +382,6 @@ def get_emdmd_features(X, fs, w, r, wsub_sec=1, h=None):
         h: Hankel embedding parameter (optional)
 
     Returns:
-        An (m/(w*fs) - 1) x 2 EmDMD feature array, with the power and phase features
-        in the first and second columns respectively.
     """
     w = w*fs                # window size in samples
     n_seg = X.shape[1]/w    # number of windows
@@ -420,14 +402,51 @@ def get_emdmd_features(X, fs, w, r, wsub_sec=1, h=None):
         # i'th time window of data, all channels
         seg = X[:, i*w:(i+1)*w]
 
-        subband_power, m, ch_plv = get_averaged_features(seg, fs, r, wsub_sec=wsub_sec, h=h)
+        subband_power, m, ch_plv, _ = get_averaged_features(seg, fs, r, wsub_sec=wsub_sec, h=h)
 
         subband[i] = subband_power
         moments[i] = m
         plv[i] = ch_plv
 
-    # return np.concatenate((power_flat, subband), axis=1)
     return np.concatenate((subband, moments, plv), axis=1)
+
+
+def get_fmax(X, fs, w, r, wsub_sec=1, h=None):
+    """
+    Computes the EmDMD features for input data X.
+
+    Arguments:
+        X: input data array of n channels x m timesteps
+        fs: sampling frequency of X (in Hz)
+        w: window size (in seconds) over which to average the EmDMD modes/phases
+            Note: m (time dim of X) must be a multiple of w*fs
+        r: SVD truncation parameter (see estimate_r.py)
+        wsub_sec: sub-window size in seconds to compute an EmDMD mode/phase pair (optional)
+        h: Hankel embedding parameter (optional)
+
+    Returns:
+    """
+    w = w*fs                # window size in samples
+    n_seg = X.shape[1]/w    # number of windows
+
+    # check that we have an integer number of windows
+    if int(n_seg) != n_seg:
+        print('Error: get_fmax() requires dim 1 of X to be a multiple of w*fs.')
+        exit(0)
+    else:
+        n_seg = int(n_seg) 
+
+    fmax = np.zeros((n_seg, 1))
+
+    for i in range(n_seg):
+        # i'th time window of data, all channels
+        seg = X[:, i*w:(i+1)*w]
+
+        _, _, _, f = get_averaged_features(seg, fs, r, wsub_sec=wsub_sec, h=h)
+
+        fmax[i] = f
+
+    print(np.max(fmax), np.mean(fmax), np.std(fmax), np.mean(fmax) + np.std(fmax))
 
 
 def get_r(X, p=0.90):
