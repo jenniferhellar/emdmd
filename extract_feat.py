@@ -101,13 +101,18 @@ OUTDIR = os.path.join(RESDIR, patient, 'features')
 if not os.path.isdir(OUTDIR):
 	os.makedirs(OUTDIR)
 
+MAX_INTER_SEG = int(40*60*60/W)     # 40 hours
+
 print('\n\nProcessing {} record {} ...'.format(dataset, patient))
 
 # if no specific file provided, process all segments for the patient
 if MULTI_FILE:
     files = os.listdir(fpath)
-    files = [i for i in files if i.find('.pkl') != -1]
-    files.sort()
+    files = [i for i in files if i.find('.pkl') != -1 and i.find('info') == -1]
+    # sort by the segment integer index
+    idx = [int(i[i.index('l')+1:-4]) for i in files]
+    sort_idx = np.argsort(idx)
+    files = list(np.array(files)[sort_idx])
 else:
     files = ['{}_{}{}.pkl'.format(patient, fclass, fidx)]
 
@@ -125,22 +130,24 @@ n_preictal_windows = 0
 n_interictal_windows = 0
 i = 0
 
-for file in files:
-    if file.find('info') != -1:
-        continue
+enough_inter = False
 
-    print('Extracting features for {} ({} of {})'.format(file, i+1, n_files))
-    
+for file in files:
     if file.find('preictal') != -1:
         state = 'preictal'
-        segidx = file[14:-4]
+        segidx = file[file.find('l')+1:-4]
     elif file.find('interictal') != -1:
         state = 'interictal'
-        segidx = file[16:-4]
+        segidx = file[file.find('l')+1:-4]
     else:
         print('\n\nunable to identify state for file ', file, ' ... skipping\n\n')
         continue
 
+    if state == 'interictal' and enough_inter:
+        continue
+
+    print('Extracting features for {} ({} of {})'.format(file, i+1, n_files))
+    
     # load an EEG/iEEG segment
     f = open(os.path.join(fpath, file), 'rb')
     seg = pickle.load(f)
@@ -164,6 +171,9 @@ for file in files:
     f.close()
 
     i += 1
+
+    if n_interictal_windows > MAX_INTER_SEG:
+        enough_inter = True
 
 print('\n\nOutput files can be found in {}'.format(OUTDIR))
 print('\n')

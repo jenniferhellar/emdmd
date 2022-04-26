@@ -63,7 +63,7 @@ PATIENTS = const.PATIENTS[dataset]
 W = const.W
 
 for p in PATIENTS:
-	# os.system('python3 split_kfolds.py --dataset {} --patient {} --sph {} --sop {}'.format(dataset, p, sph, sop))
-	# os.system('python3 classify.py --dataset {}'.format(dataset))
-	os.system('python split_kfolds.py --dataset {} --patient {} --sph {} --sop {}'.format(dataset, p, sph, sop))
-	os.system('python classify.py --dataset {} --verbose {}'.format(dataset, verbose))
+	os.system('python3 split_kfolds.py --dataset {} --patient {} --sph {} --sop {}'.format(dataset, p, sph, sop))
+	os.system('python3 classify.py --dataset {} --verbose {}'.format(dataset, verbose))
+	# os.system('python split_kfolds.py --dataset {} --patient {} --sph {} --sop {}'.format(dataset, p, sph, sop))
+	# os.system('python classify.py --dataset {} --verbose {}'.format(dataset, verbose))

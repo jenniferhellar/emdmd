@@ -290,7 +290,7 @@ def get_plv_matrix(Phi):
         Phi: n x m EmDMD mode array.
 
     Returns:
-        1 x n*(n-1)/2 phase synchronization array.
+        n x n phase synchronization array.
     """
     # complex phases of each element
     phase = np.zeros(Phi.shape)
@@ -413,7 +413,7 @@ def get_emdmd_features(X, fs, w, r, wsub_sec=1, h=None):
 
 def get_fmax(X, fs, w, r, wsub_sec=1, h=None):
     """
-    Computes the EmDMD features for input data X.
+    Computes the EmDMD frequencies for input data X.
 
     Arguments:
         X: input data array of n channels x m timesteps

@@ -240,7 +240,7 @@ if MULTI_FOLD:
     if verbose:
         print_all(res)
     print('{} & {} & {} & {} & {} & {} & {} & {} & {} & {}\\\\'.format('Seg', 'Feat', 'AUROC', 'F1', 'KAP', 'SEN', 'SPE', 'CAS', 'CAI', 'CAR'))
-    print('{} & {} & {:.3f} & {:.3f} & {:.3f} & {:.3f} & {:.3f} & {:.3f} & {:.3f} & {:.3f}\\\\'.format(res['Seg'], res['Feat'], res['AUROC'], res['F1'], res['Kappa'], res['Sensitivity'], res['Specificity'], res['CalSlope'], res['CalIntercept'], res['CalR2']))
+    print('{} & {} & {:.3f} & {:.3f} & {:.3f} & {:.3f} & {:.3f} & {:.3f} & {:.3f} & {:.3f}\\\\'.format(int(res['Seg']), res['Feat'], res['AUROC'], res['F1'], res['Kappa'], res['Sensitivity'], res['Specificity'], res['CalSlope'], res['CalIntercept'], res['CalR2']))
     print('\n***********************************************************************************')
 
     print('\nLinear SVM, Calibrated')
@@ -249,7 +249,7 @@ if MULTI_FOLD:
     if verbose:
         print_all(res)
     print('{} & {} & {} & {} & {} & {} & {} & {} & {} & {}\\\\'.format('Seg', 'Feat', 'AUROC', 'F1', 'KAP', 'SEN', 'SPE', 'CAS', 'CAI', 'CAR'))
-    print('{} & {} & {:.3f} & {:.3f} & {:.3f} & {:.3f} & {:.3f} & {:.3f} & {:.3f} & {:.3f}\\\\'.format(res['Seg'], res['Feat'], res['AUROC'], res['F1'], res['Kappa'], res['Sensitivity'], res['Specificity'], res['CalSlope'], res['CalIntercept'], res['CalR2']))
+    print('{} & {} & {:.3f} & {:.3f} & {:.3f} & {:.3f} & {:.3f} & {:.3f} & {:.3f} & {:.3f}\\\\'.format(int(res['Seg']), res['Feat'], res['AUROC'], res['F1'], res['Kappa'], res['Sensitivity'], res['Specificity'], res['CalSlope'], res['CalIntercept'], res['CalR2']))
     print('\n***********************************************************************************')
 
     print('\nRandom Forest, Uncalibrated')
@@ -258,7 +258,7 @@ if MULTI_FOLD:
     if verbose:
         print_all(res)
     print('{} & {} & {} & {} & {} & {} & {} & {} & {} & {}\\\\'.format('Seg', 'Feat', 'AUROC', 'F1', 'KAP', 'SEN', 'SPE', 'CAS', 'CAI', 'CAR'))
-    print('{} & {} & {:.3f} & {:.3f} & {:.3f} & {:.3f} & {:.3f} & {:.3f} & {:.3f} & {:.3f}\\\\'.format(res['Seg'], res['Feat'], res['AUROC'], res['F1'], res['Kappa'], res['Sensitivity'], res['Specificity'], res['CalSlope'], res['CalIntercept'], res['CalR2']))
+    print('{} & {} & {:.3f} & {:.3f} & {:.3f} & {:.3f} & {:.3f} & {:.3f} & {:.3f} & {:.3f}\\\\'.format(int(res['Seg']), res['Feat'], res['AUROC'], res['F1'], res['Kappa'], res['Sensitivity'], res['Specificity'], res['CalSlope'], res['CalIntercept'], res['CalR2']))
     print('\n***********************************************************************************')
 
     print('\nRandom Forest, Calibrated')
@@ -267,7 +267,7 @@ if MULTI_FOLD:
     if verbose:
         print_all(res)
     print('{} & {} & {} & {} & {} & {} & {} & {} & {} & {}\\\\'.format('Seg', 'Feat', 'AUROC', 'F1', 'KAP', 'SEN', 'SPE', 'CAS', 'CAI', 'CAR'))
-    print('{} & {} & {:.3f} & {:.3f} & {:.3f} & {:.3f} & {:.3f} & {:.3f} & {:.3f} & {:.3f}\\\\'.format(res['Seg'], res['Feat'], res['AUROC'], res['F1'], res['Kappa'], res['Sensitivity'], res['Specificity'], res['CalSlope'], res['CalIntercept'], res['CalR2']))
+    print('{} & {} & {:.3f} & {:.3f} & {:.3f} & {:.3f} & {:.3f} & {:.3f} & {:.3f} & {:.3f}\\\\'.format(int(res['Seg']), res['Feat'], res['AUROC'], res['F1'], res['Kappa'], res['Sensitivity'], res['Specificity'], res['CalSlope'], res['CalIntercept'], res['CalR2']))
     print('\n***********************************************************************************')
 
 print('\n\n\n')

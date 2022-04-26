@@ -83,7 +83,10 @@ def read_mat(filename):
     # print(channels)
 
     # current segment index
-    sequence_idx = data[4].flatten()[0]
+    if filename.find('test_segment') == -1:
+        sequence_idx = data[4].flatten()[0]
+    else:
+        sequence_idx = None
     # print(sequence_idx)
 
     return X, t_sec, fs, channels, sequence_idx
