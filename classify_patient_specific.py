@@ -15,13 +15,17 @@ packages: os, argparse
 local dependencies: const.py
 
 -----------------------------------------------------------------------------
-usage: extract_all_seg.py [-h] --dataset DATASET
+usage: classify_patient_specific.py [-h] --dataset DATASET --sph SPH --sop SOP [-v VERBOSE]
 
 Extracts preictal/interictal segments from all patients in the input dataset.
 
 options:
-  -h, --help         show this help message and exit
-  --dataset DATASET  Dataset name e.g. chb-mit, kaggle-ieeg
+  -h, --help            show this help message and exit
+  --dataset DATASET     Dataset name e.g. chb-mit, kaggle-ieeg
+  --sph SPH             Seizure prediction horizon (minutes). Default: 0
+  --sop SOP             Seizure onset period (minutes). Default: 5
+  -v VERBOSE, --verbose VERBOSE
+                        Verbose output. Default: 0
 -----------------------------------------------------------------------------
 """
 import os
@@ -32,7 +36,7 @@ import const
 
 
 parser = argparse.ArgumentParser(
-	description='Extracts preictal/interictal segments from all patients in the input dataset.')
+	description='Classifies each patient in the input dataset and prints CV results.')
 
 parser.add_argument('--dataset', required=True,
 					help='Dataset name e.g. chb-mit, kaggle-ieeg')
