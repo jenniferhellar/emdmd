@@ -1,0 +1,836 @@
+
+
+Processing chb-mit record chb04 ...
+
+Record info not found at
+	/home/jlh/emdmd/tempdata/chb-mit/chb04/chb04_info.pkl
+Computing record info ...
+
+Reading /home/jlh/emdmd/data/chb-mit/chb04/chb04-summary.txt ...
+	Reading /home/jlh/emdmd/data/chb-mit/chb04/chb04_01.edf ...
+	Reading /home/jlh/emdmd/data/chb-mit/chb04/chb04_02.edf ...
+	Reading /home/jlh/emdmd/data/chb-mit/chb04/chb04_03.edf ...
+	Reading /home/jlh/emdmd/data/chb-mit/chb04/chb04_04.edf ...
+	Reading /home/jlh/emdmd/data/chb-mit/chb04/chb04_05.edf ...
+	Reading /home/jlh/emdmd/data/chb-mit/chb04/chb04_06.edf ...
+	Reading /home/jlh/emdmd/data/chb-mit/chb04/chb04_07.edf ...
+	Reading /home/jlh/emdmd/data/chb-mit/chb04/chb04_08.edf ...
+	Reading /home/jlh/emdmd/data/chb-mit/chb04/chb04_09.edf ...
+	Reading /home/jlh/emdmd/data/chb-mit/chb04/chb04_10.edf ...
+	Reading /home/jlh/emdmd/data/chb-mit/chb04/chb04_11.edf ...
+	Reading /home/jlh/emdmd/data/chb-mit/chb04/chb04_12.edf ...
+	Reading /home/jlh/emdmd/data/chb-mit/chb04/chb04_13.edf ...
+	Reading /home/jlh/emdmd/data/chb-mit/chb04/chb04_14.edf ...
+	Reading /home/jlh/emdmd/data/chb-mit/chb04/chb04_15.edf ...
+	Reading /home/jlh/emdmd/data/chb-mit/chb04/chb04_16.edf ...
+	Reading /home/jlh/emdmd/data/chb-mit/chb04/chb04_17.edf ...
+	Reading /home/jlh/emdmd/data/chb-mit/chb04/chb04_18.edf ...
+	Reading /home/jlh/emdmd/data/chb-mit/chb04/chb04_19.edf ...
+	Reading /home/jlh/emdmd/data/chb-mit/chb04/chb04_21.edf ...
+	Reading /home/jlh/emdmd/data/chb-mit/chb04/chb04_22.edf ...
+	Reading /home/jlh/emdmd/data/chb-mit/chb04/chb04_23.edf ...
+	Reading /home/jlh/emdmd/data/chb-mit/chb04/chb04_24.edf ...
+	Reading /home/jlh/emdmd/data/chb-mit/chb04/chb04_25.edf ...
+	Reading /home/jlh/emdmd/data/chb-mit/chb04/chb04_26.edf ...
+	Reading /home/jlh/emdmd/data/chb-mit/chb04/chb04_27.edf ...
+	Reading /home/jlh/emdmd/data/chb-mit/chb04/chb04_28.edf ...
+	Reading /home/jlh/emdmd/data/chb-mit/chb04/chb04_29.edf ...
+	Reading /home/jlh/emdmd/data/chb-mit/chb04/chb04_30.edf ...
+	Reading /home/jlh/emdmd/data/chb-mit/chb04/chb04_31.edf ...
+	Reading /home/jlh/emdmd/data/chb-mit/chb04/chb04_32.edf ...
+	Reading /home/jlh/emdmd/data/chb-mit/chb04/chb04_33.edf ...
+	Reading /home/jlh/emdmd/data/chb-mit/chb04/chb04_34.edf ...
+	Reading /home/jlh/emdmd/data/chb-mit/chb04/chb04_35.edf ...
+	Reading /home/jlh/emdmd/data/chb-mit/chb04/chb04_36.edf ...
+	Reading /home/jlh/emdmd/data/chb-mit/chb04/chb04_37.edf ...
+	Reading /home/jlh/emdmd/data/chb-mit/chb04/chb04_38.edf ...
+	Reading /home/jlh/emdmd/data/chb-mit/chb04/chb04_39.edf ...
+	Reading /home/jlh/emdmd/data/chb-mit/chb04/chb04_40.edf ...
+	Reading /home/jlh/emdmd/data/chb-mit/chb04/chb04_41.edf ...
+	Reading /home/jlh/emdmd/data/chb-mit/chb04/chb04_42.edf ...
+	Reading /home/jlh/emdmd/data/chb-mit/chb04/chb04_43.edf ...
+
+
+
+Extracting basic file and seizure information  ...
+total_len = 143829504
+
+
+file_starts =  [0, 3685888, 7372288, 11058688, 14745088, 17186304, 20872704, 22791680, 26478080, 30164480, 33850880, 35087872, 38779392, 42465280, 46156288, 49842688, 53529088, 57044480, 60737280, 64423680, 68110080, 71796480, 74531584, 78219520, 81905920, 85592320, 89285632, 92977920, 96665088, 100351488, 104037888, 107724288, 111410688, 115097088, 118783488, 122469888, 123906816, 127593216, 131279616, 134966016, 138652416, 140143104]
+
+
+seizure_starts =  [16742912, 24441856, 89715456, 90253824]
+seizure_stops =  [16755456, 24470272, 89741568, 90283520]
+
+
+
+Combining seizures <2 hours apart (measured from end of 1st seizure to start of 2nd) ...
+seizurestart =  [16742912, 24441856, 89715456]
+seizurestop =  [16755456, 24470272, 90283520]
+num_seizures =  3
+
+
+
+Computing preictal, postictal, and interictal transitions  ...
+preictalstart =  [15821312, 23520256, 88793856]
+postictalend =  [17677056, 25391872, 91205120]
+interstart =  [0, 20441856, 28156672, 93969920]
+interend =  [13056512, 20755456, 86029056, 143829504]
+
+
+
+Computing preictal segments  ...
+preictal_seg =  [(15821312, 16742912), (23520256, 24441856), (88793856, 89715456)]
+preictal_seg_byfiles =  [(15821312, 16742912), (23520256, 24441856), (88793856, 89285632), (89285632, 89715456)]
+
+
+
+Computing interictal segments  ...
+interictal_seg =  [(0, 13056512), (20441856, 20755456), (28156672, 86029056), (93969920, 143829504)]
+interictal_seg_byfiles =  [(0, 3685888), (3685888, 7372288), (7372288, 11058688), (11058688, 13056512), (20441856, 20755456), (28156672, 30164480), (30164480, 33850880), (33850880, 35087872), (35087872, 38779392), (38779392, 42465280), (42465280, 46156288), (46156288, 49842688), (49842688, 53529088), (53529088, 57044480), (57044480, 60737280), (60737280, 64423680), (64423680, 68110080), (68110080, 71796480), (71796480, 74531584), (74531584, 78219520), (78219520, 81905920), (81905920, 85592320), (85592320, 86029056), (93969920, 96665088), (96665088, 100351488), (100351488, 104037888), (104037888, 107724288), (107724288, 111410688), (111410688, 115097088), (115097088, 118783488), (118783488, 122469888), (122469888, 123906816), (123906816, 127593216), (127593216, 131279616), (131279616, 134966016), (134966016, 138652416), (138652416, 140143104), (140143104, 143829504)]
+
+
+Saving all record info to  /home/jlh/emdmd/tempdata/chb-mit/chb04/chb04_info.pkl
+
+
+Extracting preictal segments  ...
+	Reading /home/jlh/emdmd/data/chb-mit/chb04/chb04_05.edf ...
+	Sub-sampling ...
+
+	Finished segment (15821312, 16742912) (#1 of 3)
+		segment shape  (18, 921600) 
+
+	Reading /home/jlh/emdmd/data/chb-mit/chb04/chb04_08.edf ...
+	Sub-sampling ...
+
+	Finished segment (23520256, 24441856) (#2 of 3)
+		segment shape  (18, 921600) 
+
+	Reading /home/jlh/emdmd/data/chb-mit/chb04/chb04_27.edf ...
+	Reading /home/jlh/emdmd/data/chb-mit/chb04/chb04_28.edf ...
+	Sub-sampling ...
+
+	Finished segment (88793856, 89715456) (#3 of 3)
+		segment shape  (18, 921600) 
+
+done.
+
+
+Extracting interictal segments ...
+	Reading /home/jlh/emdmd/data/chb-mit/chb04/chb04_01.edf ...
+	Reading /home/jlh/emdmd/data/chb-mit/chb04/chb04_02.edf ...
+	Sub-sampling ...
+
+	Finished an hour of segment (0, 13056512) (#1 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (0, 13056512) (#1 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (0, 13056512) (#1 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (0, 13056512) (#1 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (0, 13056512) (#1 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (0, 13056512) (#1 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (0, 13056512) (#1 of 4)
+		segment shape  (18, 921600) 
+
+	Reading /home/jlh/emdmd/data/chb-mit/chb04/chb04_03.edf ...
+	Sub-sampling ...
+
+	Finished an hour of segment (0, 13056512) (#1 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (0, 13056512) (#1 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (0, 13056512) (#1 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (0, 13056512) (#1 of 4)
+		segment shape  (18, 921600) 
+
+	Reading /home/jlh/emdmd/data/chb-mit/chb04/chb04_04.edf ...
+	Sub-sampling ...
+
+	Finished an hour of segment (0, 13056512) (#1 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (0, 13056512) (#1 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (0, 13056512) (#1 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished segment (0, 13056512) (#1 of 4)
+		segment shape  (18, 153600) 
+
+	Reading /home/jlh/emdmd/data/chb-mit/chb04/chb04_06.edf ...
+	Sub-sampling ...
+
+	Finished segment (20441856, 20755456) (#2 of 4)
+		segment shape  (18, 307200) 
+
+	Reading /home/jlh/emdmd/data/chb-mit/chb04/chb04_09.edf ...
+	Reading /home/jlh/emdmd/data/chb-mit/chb04/chb04_10.edf ...
+	Sub-sampling ...
+
+	Finished an hour of segment (28156672, 86029056) (#3 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (28156672, 86029056) (#3 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (28156672, 86029056) (#3 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (28156672, 86029056) (#3 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (28156672, 86029056) (#3 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (28156672, 86029056) (#3 of 4)
+		segment shape  (18, 921600) 
+
+	Reading /home/jlh/emdmd/data/chb-mit/chb04/chb04_11.edf ...
+	Sub-sampling ...
+
+	Finished an hour of segment (28156672, 86029056) (#3 of 4)
+		segment shape  (18, 921600) 
+
+	Reading /home/jlh/emdmd/data/chb-mit/chb04/chb04_12.edf ...
+	Sub-sampling ...
+
+	Finished an hour of segment (28156672, 86029056) (#3 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (28156672, 86029056) (#3 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (28156672, 86029056) (#3 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (28156672, 86029056) (#3 of 4)
+		segment shape  (18, 921600) 
+
+	Reading /home/jlh/emdmd/data/chb-mit/chb04/chb04_13.edf ...
+	Sub-sampling ...
+
+	Finished an hour of segment (28156672, 86029056) (#3 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (28156672, 86029056) (#3 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (28156672, 86029056) (#3 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (28156672, 86029056) (#3 of 4)
+		segment shape  (18, 921600) 
+
+	Reading /home/jlh/emdmd/data/chb-mit/chb04/chb04_14.edf ...
+	Sub-sampling ...
+
+	Finished an hour of segment (28156672, 86029056) (#3 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (28156672, 86029056) (#3 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (28156672, 86029056) (#3 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (28156672, 86029056) (#3 of 4)
+		segment shape  (18, 921600) 
+
+	Reading /home/jlh/emdmd/data/chb-mit/chb04/chb04_15.edf ...
+	Sub-sampling ...
+
+	Finished an hour of segment (28156672, 86029056) (#3 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (28156672, 86029056) (#3 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (28156672, 86029056) (#3 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (28156672, 86029056) (#3 of 4)
+		segment shape  (18, 921600) 
+
+	Reading /home/jlh/emdmd/data/chb-mit/chb04/chb04_16.edf ...
+	Sub-sampling ...
+
+	Finished an hour of segment (28156672, 86029056) (#3 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (28156672, 86029056) (#3 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (28156672, 86029056) (#3 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (28156672, 86029056) (#3 of 4)
+		segment shape  (18, 921600) 
+
+	Reading /home/jlh/emdmd/data/chb-mit/chb04/chb04_17.edf ...
+	Sub-sampling ...
+
+	Finished an hour of segment (28156672, 86029056) (#3 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (28156672, 86029056) (#3 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (28156672, 86029056) (#3 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (28156672, 86029056) (#3 of 4)
+		segment shape  (18, 921600) 
+
+	Reading /home/jlh/emdmd/data/chb-mit/chb04/chb04_18.edf ...
+	Sub-sampling ...
+
+	Finished an hour of segment (28156672, 86029056) (#3 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (28156672, 86029056) (#3 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (28156672, 86029056) (#3 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (28156672, 86029056) (#3 of 4)
+		segment shape  (18, 921600) 
+
+	Reading /home/jlh/emdmd/data/chb-mit/chb04/chb04_19.edf ...
+	Sub-sampling ...
+
+	Finished an hour of segment (28156672, 86029056) (#3 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (28156672, 86029056) (#3 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (28156672, 86029056) (#3 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (28156672, 86029056) (#3 of 4)
+		segment shape  (18, 921600) 
+
+	Reading /home/jlh/emdmd/data/chb-mit/chb04/chb04_21.edf ...
+	Sub-sampling ...
+
+	Finished an hour of segment (28156672, 86029056) (#3 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (28156672, 86029056) (#3 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (28156672, 86029056) (#3 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (28156672, 86029056) (#3 of 4)
+		segment shape  (18, 921600) 
+
+	Reading /home/jlh/emdmd/data/chb-mit/chb04/chb04_22.edf ...
+	Sub-sampling ...
+
+	Finished an hour of segment (28156672, 86029056) (#3 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (28156672, 86029056) (#3 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (28156672, 86029056) (#3 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (28156672, 86029056) (#3 of 4)
+		segment shape  (18, 921600) 
+
+	Reading /home/jlh/emdmd/data/chb-mit/chb04/chb04_23.edf ...
+	Sub-sampling ...
+
+	Finished an hour of segment (28156672, 86029056) (#3 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (28156672, 86029056) (#3 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (28156672, 86029056) (#3 of 4)
+		segment shape  (18, 921600) 
+
+	Reading /home/jlh/emdmd/data/chb-mit/chb04/chb04_24.edf ...
+	Sub-sampling ...
+
+	Finished an hour of segment (28156672, 86029056) (#3 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (28156672, 86029056) (#3 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (28156672, 86029056) (#3 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (28156672, 86029056) (#3 of 4)
+		segment shape  (18, 921600) 
+
+	Reading /home/jlh/emdmd/data/chb-mit/chb04/chb04_25.edf ...
+	Sub-sampling ...
+
+	Finished an hour of segment (28156672, 86029056) (#3 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (28156672, 86029056) (#3 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (28156672, 86029056) (#3 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (28156672, 86029056) (#3 of 4)
+		segment shape  (18, 921600) 
+
+	Reading /home/jlh/emdmd/data/chb-mit/chb04/chb04_26.edf ...
+	Sub-sampling ...
+
+	Finished an hour of segment (28156672, 86029056) (#3 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (28156672, 86029056) (#3 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (28156672, 86029056) (#3 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (28156672, 86029056) (#3 of 4)
+		segment shape  (18, 921600) 
+
+	Reading /home/jlh/emdmd/data/chb-mit/chb04/chb04_27.edf ...
+	Sub-sampling ...
+
+	Finished segment (28156672, 86029056) (#3 of 4)
+		segment shape  (18, 721920) 
+
+	Reading /home/jlh/emdmd/data/chb-mit/chb04/chb04_29.edf ...
+	Reading /home/jlh/emdmd/data/chb-mit/chb04/chb04_30.edf ...
+	Sub-sampling ...
+
+	Finished an hour of segment (93969920, 143829504) (#4 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (93969920, 143829504) (#4 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (93969920, 143829504) (#4 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (93969920, 143829504) (#4 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (93969920, 143829504) (#4 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (93969920, 143829504) (#4 of 4)
+		segment shape  (18, 921600) 
+
+	Reading /home/jlh/emdmd/data/chb-mit/chb04/chb04_31.edf ...
+	Sub-sampling ...
+
+	Finished an hour of segment (93969920, 143829504) (#4 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (93969920, 143829504) (#4 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (93969920, 143829504) (#4 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (93969920, 143829504) (#4 of 4)
+		segment shape  (18, 921600) 
+
+	Reading /home/jlh/emdmd/data/chb-mit/chb04/chb04_32.edf ...
+	Sub-sampling ...
+
+	Finished an hour of segment (93969920, 143829504) (#4 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (93969920, 143829504) (#4 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (93969920, 143829504) (#4 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (93969920, 143829504) (#4 of 4)
+		segment shape  (18, 921600) 
+
+	Reading /home/jlh/emdmd/data/chb-mit/chb04/chb04_33.edf ...
+	Sub-sampling ...
+
+	Finished an hour of segment (93969920, 143829504) (#4 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (93969920, 143829504) (#4 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (93969920, 143829504) (#4 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (93969920, 143829504) (#4 of 4)
+		segment shape  (18, 921600) 
+
+	Reading /home/jlh/emdmd/data/chb-mit/chb04/chb04_34.edf ...
+	Sub-sampling ...
+
+	Finished an hour of segment (93969920, 143829504) (#4 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (93969920, 143829504) (#4 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (93969920, 143829504) (#4 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (93969920, 143829504) (#4 of 4)
+		segment shape  (18, 921600) 
+
+	Reading /home/jlh/emdmd/data/chb-mit/chb04/chb04_35.edf ...
+	Sub-sampling ...
+
+	Finished an hour of segment (93969920, 143829504) (#4 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (93969920, 143829504) (#4 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (93969920, 143829504) (#4 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (93969920, 143829504) (#4 of 4)
+		segment shape  (18, 921600) 
+
+	Reading /home/jlh/emdmd/data/chb-mit/chb04/chb04_36.edf ...
+	Sub-sampling ...
+
+	Finished an hour of segment (93969920, 143829504) (#4 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (93969920, 143829504) (#4 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (93969920, 143829504) (#4 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (93969920, 143829504) (#4 of 4)
+		segment shape  (18, 921600) 
+
+	Reading /home/jlh/emdmd/data/chb-mit/chb04/chb04_37.edf ...
+	Sub-sampling ...
+
+	Finished an hour of segment (93969920, 143829504) (#4 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (93969920, 143829504) (#4 of 4)
+		segment shape  (18, 921600) 
+
+	Reading /home/jlh/emdmd/data/chb-mit/chb04/chb04_38.edf ...
+	Sub-sampling ...
+
+	Finished an hour of segment (93969920, 143829504) (#4 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (93969920, 143829504) (#4 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (93969920, 143829504) (#4 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (93969920, 143829504) (#4 of 4)
+		segment shape  (18, 921600) 
+
+	Reading /home/jlh/emdmd/data/chb-mit/chb04/chb04_39.edf ...
+	Sub-sampling ...
+
+	Finished an hour of segment (93969920, 143829504) (#4 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (93969920, 143829504) (#4 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (93969920, 143829504) (#4 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (93969920, 143829504) (#4 of 4)
+		segment shape  (18, 921600) 
+
+	Reading /home/jlh/emdmd/data/chb-mit/chb04/chb04_40.edf ...
+	Sub-sampling ...
+
+	Finished an hour of segment (93969920, 143829504) (#4 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (93969920, 143829504) (#4 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (93969920, 143829504) (#4 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (93969920, 143829504) (#4 of 4)
+		segment shape  (18, 921600) 
+
+	Reading /home/jlh/emdmd/data/chb-mit/chb04/chb04_41.edf ...
+	Sub-sampling ...
+
+	Finished an hour of segment (93969920, 143829504) (#4 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (93969920, 143829504) (#4 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (93969920, 143829504) (#4 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (93969920, 143829504) (#4 of 4)
+		segment shape  (18, 921600) 
+
+	Reading /home/jlh/emdmd/data/chb-mit/chb04/chb04_42.edf ...
+	Sub-sampling ...
+
+	Finished an hour of segment (93969920, 143829504) (#4 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (93969920, 143829504) (#4 of 4)
+		segment shape  (18, 921600) 
+
+	Reading /home/jlh/emdmd/data/chb-mit/chb04/chb04_43.edf ...
+	Sub-sampling ...
+
+	Finished an hour of segment (93969920, 143829504) (#4 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (93969920, 143829504) (#4 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (93969920, 143829504) (#4 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (93969920, 143829504) (#4 of 4)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished segment (93969920, 143829504) (#4 of 4)
+		segment shape  (18, 92160) 
+
+done.
+
+
+Output files can be found in /home/jlh/emdmd/tempdata/chb-mit/chb04
+
+total_seizures =  4
+num_seizures =  3
+preictal time (min) =  180.0
+interictal time (min) =  7883.0

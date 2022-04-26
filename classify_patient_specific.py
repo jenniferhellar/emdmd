@@ -17,7 +17,7 @@ local dependencies: const.py
 -----------------------------------------------------------------------------
 usage: classify_patient_specific.py [-h] --dataset DATASET --sph SPH --sop SOP [-v VERBOSE]
 
-Extracts preictal/interictal segments from all patients in the input dataset.
+Classifies each patient in the input dataset and prints CV results.
 
 options:
   -h, --help            show this help message and exit

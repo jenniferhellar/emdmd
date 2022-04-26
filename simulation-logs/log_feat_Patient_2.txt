@@ -1,0 +1,42 @@
+
+
+Processing kaggle-ieeg record Patient_2 ...
+Extracting features for Patient_2_preictal0.pkl (1 of 10)
+	number of windows evaluated ...  120
+	dumping data to file ...
+Extracting features for Patient_2_interictal0.pkl (2 of 10)
+	number of windows evaluated ...  120
+	dumping data to file ...
+Extracting features for Patient_2_preictal1.pkl (3 of 10)
+	number of windows evaluated ...  120
+	dumping data to file ...
+Extracting features for Patient_2_interictal1.pkl (4 of 10)
+	number of windows evaluated ...  120
+	dumping data to file ...
+Extracting features for Patient_2_interictal2.pkl (5 of 10)
+	number of windows evaluated ...  120
+	dumping data to file ...
+Extracting features for Patient_2_preictal2.pkl (6 of 10)
+	number of windows evaluated ...  120
+	dumping data to file ...
+Extracting features for Patient_2_interictal3.pkl (7 of 10)
+	number of windows evaluated ...  120
+	dumping data to file ...
+Extracting features for Patient_2_interictal4.pkl (8 of 10)
+	number of windows evaluated ...  120
+	dumping data to file ...
+Extracting features for Patient_2_interictal5.pkl (9 of 10)
+	number of windows evaluated ...  120
+	dumping data to file ...
+Extracting features for Patient_2_interictal6.pkl (10 of 10)
+	number of windows evaluated ...  120
+	dumping data to file ...
+
+
+Output files can be found in /home/jlh/emdmd/tempdata/kaggle-ieeg/Patient_2/features
+
+
+total preictal windows ...  360
+total interictal windows ...  840
+
+Finished!

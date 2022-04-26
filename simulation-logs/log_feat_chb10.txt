@@ -1,0 +1,99 @@
+
+
+Processing chb-mit record chb10 ...
+Extracting features for chb10_interictal0.pkl (1 of 30)
+	number of windows evaluated ...  120
+	dumping data to file ...
+Extracting features for chb10_interictal1.pkl (2 of 30)
+	number of windows evaluated ...  120
+	dumping data to file ...
+Extracting features for chb10_interictal10.pkl (3 of 30)
+	number of windows evaluated ...  120
+	dumping data to file ...
+Extracting features for chb10_interictal11.pkl (4 of 30)
+	number of windows evaluated ...  120
+	dumping data to file ...
+Extracting features for chb10_interictal12.pkl (5 of 30)
+	number of windows evaluated ...  120
+	dumping data to file ...
+Extracting features for chb10_interictal13.pkl (6 of 30)
+	number of windows evaluated ...  90
+	dumping data to file ...
+Extracting features for chb10_interictal14.pkl (7 of 30)
+	number of windows evaluated ...  120
+	dumping data to file ...
+Extracting features for chb10_interictal15.pkl (8 of 30)
+	number of windows evaluated ...  120
+	dumping data to file ...
+Extracting features for chb10_interictal16.pkl (9 of 30)
+	number of windows evaluated ...  120
+	dumping data to file ...
+Extracting features for chb10_interictal17.pkl (10 of 30)
+	number of windows evaluated ...  120
+	dumping data to file ...
+Extracting features for chb10_interictal18.pkl (11 of 30)
+	number of windows evaluated ...  120
+	dumping data to file ...
+Extracting features for chb10_interictal19.pkl (12 of 30)
+	number of windows evaluated ...  120
+	dumping data to file ...
+Extracting features for chb10_interictal2.pkl (13 of 30)
+	number of windows evaluated ...  120
+	dumping data to file ...
+Extracting features for chb10_interictal20.pkl (14 of 30)
+	number of windows evaluated ...  120
+	dumping data to file ...
+Extracting features for chb10_interictal21.pkl (15 of 30)
+	number of windows evaluated ...  120
+	dumping data to file ...
+Extracting features for chb10_interictal22.pkl (16 of 30)
+	number of windows evaluated ...  18
+	dumping data to file ...
+Extracting features for chb10_interictal3.pkl (17 of 30)
+	number of windows evaluated ...  120
+	dumping data to file ...
+Extracting features for chb10_interictal4.pkl (18 of 30)
+	number of windows evaluated ...  120
+	dumping data to file ...
+Extracting features for chb10_interictal5.pkl (19 of 30)
+	number of windows evaluated ...  120
+	dumping data to file ...
+Extracting features for chb10_interictal6.pkl (20 of 30)
+	number of windows evaluated ...  120
+	dumping data to file ...
+Extracting features for chb10_interictal7.pkl (21 of 30)
+	number of windows evaluated ...  120
+	dumping data to file ...
+Extracting features for chb10_interictal8.pkl (22 of 30)
+	number of windows evaluated ...  120
+	dumping data to file ...
+Extracting features for chb10_interictal9.pkl (23 of 30)
+	number of windows evaluated ...  120
+	dumping data to file ...
+Extracting features for chb10_preictal0.pkl (24 of 30)
+	number of windows evaluated ...  120
+	dumping data to file ...
+Extracting features for chb10_preictal1.pkl (25 of 30)
+	number of windows evaluated ...  120
+	dumping data to file ...
+Extracting features for chb10_preictal2.pkl (26 of 30)
+	number of windows evaluated ...  120
+	dumping data to file ...
+Extracting features for chb10_preictal3.pkl (27 of 30)
+	number of windows evaluated ...  120
+	dumping data to file ...
+Extracting features for chb10_preictal4.pkl (28 of 30)
+	number of windows evaluated ...  120
+	dumping data to file ...
+Extracting features for chb10_preictal5.pkl (29 of 30)
+	number of windows evaluated ...  120
+	dumping data to file ...
+
+
+Output files can be found in /home/jlh/emdmd/tempdata/chb-mit/chb10/features
+
+
+total preictal windows ...  720
+total interictal windows ...  2628
+
+Finished!

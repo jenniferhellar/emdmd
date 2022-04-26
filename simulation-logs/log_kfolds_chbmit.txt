@@ -1,0 +1,38 @@
+analyzing patient chb01
+chb01 (200, 161) (200, 1)
+analyzing patient chb02
+chb02 (80, 161) (80, 1)
+analyzing patient chb04
+chb04 (120, 161) (120, 1)
+analyzing patient chb05
+chb05 (160, 161) (160, 1)
+analyzing patient chb06
+chb06 (240, 161) (240, 1)
+analyzing patient chb07
+chb07 (80, 161) (80, 1)
+analyzing patient chb09
+chb09 (80, 161) (80, 1)
+analyzing patient chb10
+chb10 (240, 161) (240, 1)
+analyzing patient chb13
+chb13 (120, 161) (120, 1)
+analyzing patient chb14
+chb14 (120, 161) (120, 1)
+analyzing patient chb16
+chb16 (80, 161) (80, 1)
+analyzing patient chb17
+chb17 (80, 161) (80, 1)
+analyzing patient chb18
+chb18 (80, 161) (80, 1)
+analyzing patient chb20
+chb20 (80, 161) (80, 1)
+analyzing patient chb22
+chb22 (120, 161) (120, 1)
+analyzing patient chb23
+chb23 (80, 161) (80, 1)
+X_train	 5 (1568, 161)
+y_train	 5 (1568, 1)
+X_test	 5 (392, 161)
+y_test	 5 (392, 1)
+
+dumping data to file ...

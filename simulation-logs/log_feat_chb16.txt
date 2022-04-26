@@ -1,0 +1,36 @@
+
+
+Processing chb-mit record chb16 ...
+Extracting features for chb16_interictal0.pkl (1 of 9)
+	number of windows evaluated ...  120
+	dumping data to file ...
+Extracting features for chb16_interictal1.pkl (2 of 9)
+	number of windows evaluated ...  120
+	dumping data to file ...
+Extracting features for chb16_interictal2.pkl (3 of 9)
+	number of windows evaluated ...  120
+	dumping data to file ...
+Extracting features for chb16_interictal3.pkl (4 of 9)
+	number of windows evaluated ...  120
+	dumping data to file ...
+Extracting features for chb16_interictal4.pkl (5 of 9)
+	number of windows evaluated ...  120
+	dumping data to file ...
+Extracting features for chb16_interictal5.pkl (6 of 9)
+	number of windows evaluated ...  76
+	dumping data to file ...
+Extracting features for chb16_preictal0.pkl (7 of 9)
+	number of windows evaluated ...  120
+	dumping data to file ...
+Extracting features for chb16_preictal1.pkl (8 of 9)
+	number of windows evaluated ...  120
+	dumping data to file ...
+
+
+Output files can be found in /home/jlh/emdmd/tempdata/chb-mit/chb16/features
+
+
+total preictal windows ...  240
+total interictal windows ...  676
+
+Finished!

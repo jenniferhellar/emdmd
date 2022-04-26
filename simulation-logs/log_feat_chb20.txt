@@ -1,0 +1,54 @@
+
+
+Processing chb-mit record chb20 ...
+Extracting features for chb20_interictal0.pkl (1 of 15)
+	number of windows evaluated ...  120
+	dumping data to file ...
+Extracting features for chb20_interictal1.pkl (2 of 15)
+	number of windows evaluated ...  120
+	dumping data to file ...
+Extracting features for chb20_interictal10.pkl (3 of 15)
+	number of windows evaluated ...  120
+	dumping data to file ...
+Extracting features for chb20_interictal11.pkl (4 of 15)
+	number of windows evaluated ...  90
+	dumping data to file ...
+Extracting features for chb20_interictal2.pkl (5 of 15)
+	number of windows evaluated ...  120
+	dumping data to file ...
+Extracting features for chb20_interictal3.pkl (6 of 15)
+	number of windows evaluated ...  120
+	dumping data to file ...
+Extracting features for chb20_interictal4.pkl (7 of 15)
+	number of windows evaluated ...  120
+	dumping data to file ...
+Extracting features for chb20_interictal5.pkl (8 of 15)
+	number of windows evaluated ...  2
+	dumping data to file ...
+Extracting features for chb20_interictal6.pkl (9 of 15)
+	number of windows evaluated ...  120
+	dumping data to file ...
+Extracting features for chb20_interictal7.pkl (10 of 15)
+	number of windows evaluated ...  120
+	dumping data to file ...
+Extracting features for chb20_interictal8.pkl (11 of 15)
+	number of windows evaluated ...  120
+	dumping data to file ...
+Extracting features for chb20_interictal9.pkl (12 of 15)
+	number of windows evaluated ...  120
+	dumping data to file ...
+Extracting features for chb20_preictal0.pkl (13 of 15)
+	number of windows evaluated ...  120
+	dumping data to file ...
+Extracting features for chb20_preictal1.pkl (14 of 15)
+	number of windows evaluated ...  120
+	dumping data to file ...
+
+
+Output files can be found in /home/jlh/emdmd/tempdata/chb-mit/chb20/features
+
+
+total preictal windows ...  240
+total interictal windows ...  1292
+
+Finished!

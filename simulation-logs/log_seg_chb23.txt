@@ -1,0 +1,169 @@
+
+
+Processing chb-mit record chb23 ...
+
+Record info not found at
+	/home/jlh/emdmd/tempdata/chb-mit/chb23/chb23_info.pkl
+Computing record info ...
+
+Reading /home/jlh/emdmd/data/chb-mit/chb23/chb23-summary.txt ...
+	Reading /home/jlh/emdmd/data/chb-mit/chb23/chb23_06.edf ...
+	Reading /home/jlh/emdmd/data/chb-mit/chb23/chb23_07.edf ...
+	Reading /home/jlh/emdmd/data/chb-mit/chb23/chb23_08.edf ...
+	Reading /home/jlh/emdmd/data/chb-mit/chb23/chb23_09.edf ...
+	Reading /home/jlh/emdmd/data/chb-mit/chb23/chb23_10.edf ...
+	Reading /home/jlh/emdmd/data/chb-mit/chb23/chb23_16.edf ...
+	Reading /home/jlh/emdmd/data/chb-mit/chb23/chb23_17.edf ...
+	Reading /home/jlh/emdmd/data/chb-mit/chb23/chb23_19.edf ...
+	Reading /home/jlh/emdmd/data/chb-mit/chb23/chb23_20.edf ...
+
+
+
+Extracting basic file and seizure information  ...
+total_len = 24476160
+
+
+file_starts =  [0, 1916416, 2571776, 5219328, 8912384, 12598784, 16285184, 19507456, 23193856]
+
+
+seizure_starts =  [1014272, 2654976, 3878400, 5882112, 6981888, 7396608, 7671808]
+seizure_stops =  [1043200, 2660096, 3890432, 5900288, 6997760, 7403520, 7693312]
+
+
+
+Combining seizures <2 hours apart (measured from end of 1st seizure to start of 2nd) ...
+seizurestart =  [1014272, 5882112]
+seizurestop =  [3890432, 7693312]
+num_seizures =  2
+
+
+
+Computing preictal, postictal, and interictal transitions  ...
+preictalstart =  [92672, 4960512]
+postictalend =  [4812032, 8614912]
+interstart =  [0, 7576832, 11379712]
+interend =  [0, 2195712, 24476160]
+
+
+
+Computing preictal segments  ...
+preictal_seg =  [(92672, 1014272), (4960512, 5882112)]
+preictal_seg_byfiles =  [(92672, 1014272), (4960512, 5219328), (5219328, 5882112)]
+
+
+
+Computing interictal segments  ...
+interictal_seg =  [(11379712, 24476160)]
+interictal_seg_byfiles =  [(11379712, 12598784), (12598784, 16285184), (16285184, 19507456), (19507456, 23193856), (23193856, 24476160)]
+
+
+Saving all record info to  /home/jlh/emdmd/tempdata/chb-mit/chb23/chb23_info.pkl
+
+
+Extracting preictal segments  ...
+	Reading /home/jlh/emdmd/data/chb-mit/chb23/chb23_06.edf ...
+	Sub-sampling ...
+
+	Finished segment (92672, 1014272) (#1 of 2)
+		segment shape  (18, 921600) 
+
+	Reading /home/jlh/emdmd/data/chb-mit/chb23/chb23_08.edf ...
+	Reading /home/jlh/emdmd/data/chb-mit/chb23/chb23_09.edf ...
+	Sub-sampling ...
+
+	Finished segment (4960512, 5882112) (#2 of 2)
+		segment shape  (18, 921600) 
+
+done.
+
+
+Extracting interictal segments ...
+	Reading /home/jlh/emdmd/data/chb-mit/chb23/chb23_10.edf ...
+	Reading /home/jlh/emdmd/data/chb-mit/chb23/chb23_16.edf ...
+	Sub-sampling ...
+
+	Finished an hour of segment (11379712, 24476160) (#1 of 1)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (11379712, 24476160) (#1 of 1)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (11379712, 24476160) (#1 of 1)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (11379712, 24476160) (#1 of 1)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (11379712, 24476160) (#1 of 1)
+		segment shape  (18, 921600) 
+
+	Reading /home/jlh/emdmd/data/chb-mit/chb23/chb23_17.edf ...
+	Sub-sampling ...
+
+	Finished an hour of segment (11379712, 24476160) (#1 of 1)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (11379712, 24476160) (#1 of 1)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (11379712, 24476160) (#1 of 1)
+		segment shape  (18, 921600) 
+
+	Reading /home/jlh/emdmd/data/chb-mit/chb23/chb23_19.edf ...
+	Sub-sampling ...
+
+	Finished an hour of segment (11379712, 24476160) (#1 of 1)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (11379712, 24476160) (#1 of 1)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (11379712, 24476160) (#1 of 1)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (11379712, 24476160) (#1 of 1)
+		segment shape  (18, 921600) 
+
+	Reading /home/jlh/emdmd/data/chb-mit/chb23/chb23_20.edf ...
+	Sub-sampling ...
+
+	Finished an hour of segment (11379712, 24476160) (#1 of 1)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished an hour of segment (11379712, 24476160) (#1 of 1)
+		segment shape  (18, 921600) 
+
+	Sub-sampling ...
+
+	Finished segment (11379712, 24476160) (#1 of 1)
+		segment shape  (18, 184320) 
+
+done.
+
+
+Output files can be found in /home/jlh/emdmd/tempdata/chb-mit/chb23
+
+total_seizures =  7
+num_seizures =  2
+preictal time (min) =  120.0
+interictal time (min) =  852.0

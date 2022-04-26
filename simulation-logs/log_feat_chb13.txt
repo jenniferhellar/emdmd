@@ -1,0 +1,60 @@
+
+
+Processing chb-mit record chb13 ...
+Extracting features for chb13_interictal0.pkl (1 of 17)
+	number of windows evaluated ...  120
+	dumping data to file ...
+Extracting features for chb13_interictal1.pkl (2 of 17)
+	number of windows evaluated ...  120
+	dumping data to file ...
+Extracting features for chb13_interictal10.pkl (3 of 17)
+	number of windows evaluated ...  120
+	dumping data to file ...
+Extracting features for chb13_interictal11.pkl (4 of 17)
+	number of windows evaluated ...  120
+	dumping data to file ...
+Extracting features for chb13_interictal12.pkl (5 of 17)
+	number of windows evaluated ...  68
+	dumping data to file ...
+Extracting features for chb13_interictal2.pkl (6 of 17)
+	number of windows evaluated ...  120
+	dumping data to file ...
+Extracting features for chb13_interictal3.pkl (7 of 17)
+	number of windows evaluated ...  120
+	dumping data to file ...
+Extracting features for chb13_interictal4.pkl (8 of 17)
+	number of windows evaluated ...  120
+	dumping data to file ...
+Extracting features for chb13_interictal5.pkl (9 of 17)
+	number of windows evaluated ...  120
+	dumping data to file ...
+Extracting features for chb13_interictal6.pkl (10 of 17)
+	number of windows evaluated ...  120
+	dumping data to file ...
+Extracting features for chb13_interictal7.pkl (11 of 17)
+	number of windows evaluated ...  120
+	dumping data to file ...
+Extracting features for chb13_interictal8.pkl (12 of 17)
+	number of windows evaluated ...  120
+	dumping data to file ...
+Extracting features for chb13_interictal9.pkl (13 of 17)
+	number of windows evaluated ...  120
+	dumping data to file ...
+Extracting features for chb13_preictal0.pkl (14 of 17)
+	number of windows evaluated ...  120
+	dumping data to file ...
+Extracting features for chb13_preictal1.pkl (15 of 17)
+	number of windows evaluated ...  120
+	dumping data to file ...
+Extracting features for chb13_preictal2.pkl (16 of 17)
+	number of windows evaluated ...  120
+	dumping data to file ...
+
+
+Output files can be found in /home/jlh/emdmd/tempdata/chb-mit/chb13/features
+
+
+total preictal windows ...  360
+total interictal windows ...  1508
+
+Finished!
