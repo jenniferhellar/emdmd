@@ -1,12 +1,12 @@
 # Epileptic EEG classification using Embedded Dynamic Mode Decomposition
 Author: Jennifer Hellar \
-Date: Apr 26, 2022 \
+Date: Apr 26, 2022
 
 ## Datasets
 CHB-MIT scalp EEG \
     (https://physionet.org/content/chbmit/1.0.0/) \
 Kaggle American Epilepsy Society Seizure Prediction Challenge intracranial EEG \
-    (https://www.kaggle.com/c/seizure-prediction) \
+    (https://www.kaggle.com/c/seizure-prediction)
 
 ## Key scripts:
 const.py \
