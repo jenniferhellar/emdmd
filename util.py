@@ -1,3 +1,15 @@
+"""
+Common utility library.
+-----------------------------------------------------------------------------
+
+file: util.py
+author: Jennifer Hellar
+email: jenniferhellar@pm.me
+
+packages: pyedflib, numpy, scipy
+
+-----------------------------------------------------------------------------
+"""
 import pyedflib
 import numpy as np
 
@@ -6,8 +18,14 @@ from scipy import signal, io
 
 def read_edf(filename):
     """
-    See https://pyedflib.readthedocs.io/en/latest/ for
+    Reads an EDF file. See https://pyedflib.readthedocs.io/en/latest/ for
     latest documentation of the PyEDFlib toolbox.
+
+    Arguments:
+        filename: full path to EDF file with file name
+
+    Returns:
+        n channels x m timesteps numpy data array
     """
     fname=filename
     f = pyedflib.EdfReader(fname)
@@ -24,11 +42,26 @@ def read_edf(filename):
 
 def read_mat(filename):
     """
+    Reads a MAT file from the Kaggle-iEEG dataset.
+
+    Arguments:
+        filename: full path to MAT file with file name
+
+    Returns:
+        X: n channels x m timesteps numpy data array
+        t_sec: length in seconds of data
+        fs: sampling frequency
+        channels: list of channel names
+        sequence_idx: current segment index
     """
+    # loads as a dictionary
     mat = io.loadmat(filename)
+    # find the one key that has all the actual data in it
     dkey = [k for k in mat.keys() if k.find('segment') != -1]
     dkey = dkey[0]
 
+    # get the data and flatten the extra dimensions
+    #   (now a tuple of variables)
     data = mat[dkey]
     data = data[0][0]
 
@@ -50,7 +83,10 @@ def read_mat(filename):
     # print(channels)
 
     # current segment index
-    sequence_idx = data[4].flatten()[0]
+    if filename.find('test_segment') == -1:
+        sequence_idx = data[4].flatten()[0]
+    else:
+        sequence_idx = None
     # print(sequence_idx)
 
     return X, t_sec, fs, channels, sequence_idx
@@ -58,12 +94,17 @@ def read_mat(filename):
 
 def get_file_summary(patientfile, summaryfile):
     """
-    summaryfile: path to summary file
-    patientfile: name of patient file to extract info for
+    For a given CHB-MIT patient data file, retrive the seizure info
+    from the patient summary file.
 
-    returns: start and stop time of seizure in patientfile
+    Arguments:
+        patientfile: name of patient file
+        summaryfile: full path to and name of summary file
 
-    note that it assumes only one seizure per file
+    Returns: 
+        Tuple (start, stop) of seizure in patientfile
+
+    NOTE: assumes only one seizure per file
     """
     
     foundfile = False
@@ -86,6 +127,21 @@ def get_file_summary(patientfile, summaryfile):
 
 
 def read_summary(summaryfile):
+    """
+    Parses a patient summary file of the CHB-MIT dataset to extract
+    seizure information.
+
+    Arguments:
+        summaryfile: full path to patient summary file incl. name
+
+    Returns:
+        infodict: a dictionary of seizure information
+            keys: edf file names
+            values: a dictionary of file-specific info 
+                keys: 's', seizure indices
+                values: number of seizures; tuples (start, stop)
+                    of seizure onset and end samples
+    """
 
     infodict = {}
     
@@ -106,10 +162,12 @@ def read_summary(summaryfile):
             if line.find('Seizure') != -1 and line.find('Start Time') != -1:
                 linsplit = line.split(' ')
                 lst = [i.strip() for i in linsplit if i.strip() != '']
+                # convert from seconds to samples (fs = 256 Hz)
                 start = int(lst[-2])*256
             if line.find('Seizure') != -1 and line.find('End Time') != -1:
                 linsplit = line.split(' ')
                 lst = [i.strip() for i in linsplit if i.strip() != '']
+                # convert from seconds to samples (fs = 256 Hz)
                 stop = int(lst[-2])*256
                 infodict[edf][cnt] = (start, stop)
                 cnt += 1
@@ -117,25 +175,47 @@ def read_summary(summaryfile):
 
 
 def butter_bandpass_filter(data, fs, lowcut=0.1, highcut=40, order = 2):
+    """
+    Filters input data with a Butterworth bandpass filter.
+        cutoffs (default): 0.1 Hz and 40 Hz
+
+    Arguments:
+        data: input data array, channels x time
+        fs: sampling frequency (in Hz)
+        lowcut: lowpass filter cutoff (optional, default: 0.1 Hz)
+        highcut: highpass filter cutoff (optional, default: 40 Hz)
+        order: filter order (optional, default: 2)
+
+    Returns:
+        Result of filtering the input data array.
+    """
+    # convert to nyquist frequencies
     nyq = 0.5 * fs
     low = lowcut / nyq
     high = highcut / nyq
 
+    # digital filter specification
     i, u = signal.butter(order, [low, high], btype='bandpass', analog=False)
     y = signal.filtfilt(i, u, data, padlen=150)
     return y
 
 
-def read_feature_extraction_log(logfile):
+def downsample(X, factor):
+    """
+    Downsamples the input data array by the requested factor. Downsampling
+    performed by averaging across time in chunks of size "factor".
 
-    with open(logfile, 'r') as fID:
-        for line in fID:
-            if line.find('total preictal windows') != -1:
-                linsplit = line.split(' ')
-                lst = [i.strip() for i in linsplit if i.strip() != '']
-                n_preictal_windows = int(lst[-1])
-            if line.find('total interictal windows') != -1:
-                linsplit = line.split(' ')
-                lst = [i.strip() for i in linsplit if i.strip() != '']
-                n_interictal_windows = int(lst[-1])
-    return n_preictal_windows, n_interictal_windows
+    Arguments:
+        X: input data array of shape n channels x m timesteps
+        factor: downsampling factor (integer)
+
+    Returns:
+        Downsampled data array, n x int(m/factor)
+    """
+    if factor > 1:
+        X_out = np.zeros((X.shape[0], int(X.shape[1]/factor)))
+        for x in range(0, X.shape[1], factor):
+            X_out[:, int(x/factor)] = np.mean(X[:, x:x+factor], axis=1)
+    else:
+        X_out = X
+    return X_out
